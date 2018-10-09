@@ -2,5 +2,34 @@
 {% extends 'layout.html.twig' %}
 
 {% block contenu %}
-    <h1>Hello {{ name }}</h1>
+
+	<div class="py-5 text-center">
+	    <img class="d-block mx-auto mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+	    <h2>Forum santé</h2>
+	    <p class="lead">
+			Outil pour organiser les groupes du forum santé
+	    </p>
+	
+
+	    <form class="form-inline">
+	    	<div class="form-row">
+				<div class="form-group col-md-6 mb-3">
+				  <input type="file" class="custom-file-input" id="customFile">
+				  <label class="custom-file-label" for="customFile">
+					Charger le fichier CSV
+				  </label>
+				</div>
+				
+				<div class="form-group col-md-3 mb-3">
+					<button class="btn btn-primary" type="submit">Envoyer</button>
+				</div>
+			</div>
+	    </form>
+		
+
+		<p class="alert alert-info">
+		Téléchargez un exemple du fichier CSV : <a href="">Fichier CSV</a>
+		</p>
+	
+	</div>
 {% endblock %}
