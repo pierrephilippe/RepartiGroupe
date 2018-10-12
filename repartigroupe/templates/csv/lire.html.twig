@@ -1,0 +1,27 @@
+{# templates/csv/lire.html.twig #}
+{% extends 'layout.html.twig' %}
+
+{% block contenu %}
+
+	<div class="text-center">
+	    <h2>Forum santé</h2>
+	    <p class="lead">
+			Outil pour organiser les groupes du forum santé
+	    </p>
+	
+		Lire csv
+
+		<h1>Fichiers</h1>
+		<ul>
+		    {% for index, fichier in listefichiers %}
+		        <li>{{ fichier }} <br />
+					{% for ligne in lignes %}
+				       {{ ligne }}<br />
+				    {% endfor %}
+		        </li>
+
+		    {% endfor %}
+		</ul>
+	
+	</div>
+{% endblock %}
