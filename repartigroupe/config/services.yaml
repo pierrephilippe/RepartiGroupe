@@ -30,3 +30,6 @@ services:
     # please note that last definitions always *replace* previous one
     App\Googleform\Import:
         arguments: ['@doctrine.orm.entity_manager']
+
+    App\Calculateur\Groupe:
+        arguments: ['@doctrine.orm.entity_manager']
