@@ -39,9 +39,9 @@ class Eleve
     private $eleveAteliers;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Groupe", mappedBy="eleve")
+     * @ORM\OneToMany(targetEntity="App\Entity\EleveGroupe", mappedBy="eleve")
      */
-    private $groupes;
+    private $eleveGroupes;
 
     public function __construct()
     {
@@ -154,28 +154,62 @@ class Eleve
     }
 
     /**
-     * @return Collection|Groupe[]
+     * @return Collection|EleveGroupe[]
      */
-    public function getGroupes(): Collection
+    public function getGroupe(): Collection
     {
-        return $this->groupes;
+        return $this->groupe;
     }
 
-    public function addGroupe(Groupe $groupe): self
+    public function addGroupe(EleveGroupe $groupe): self
     {
-        if (!$this->groupes->contains($groupe)) {
-            $this->groupes[] = $groupe;
-            $groupe->addEleve($this);
+        if (!$this->groupe->contains($groupe)) {
+            $this->groupe[] = $groupe;
+            $groupe->setEleve($this);
         }
 
         return $this;
     }
 
-    public function removeGroupe(Groupe $groupe): self
+    public function removeGroupe(EleveGroupe $groupe): self
     {
-        if ($this->groupes->contains($groupe)) {
-            $this->groupes->removeElement($groupe);
-            $groupe->removeEleve($this);
+        if ($this->groupe->contains($groupe)) {
+            $this->groupe->removeElement($groupe);
+            // set the owning side to null (unless already changed)
+            if ($groupe->getEleve() === $this) {
+                $groupe->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EleveGroupe[]
+     */
+    public function getEleveGroupes(): Collection
+    {
+        return $this->eleveGroupes;
+    }
+
+    public function addEleveGroupe(EleveGroupe $eleveGroupe): self
+    {
+        if (!$this->eleveGroupes->contains($eleveGroupe)) {
+            $this->eleveGroupes[] = $eleveGroupe;
+            $eleveGroupe->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEleveGroupe(EleveGroupe $eleveGroupe): self
+    {
+        if ($this->eleveGroupes->contains($eleveGroupe)) {
+            $this->eleveGroupes->removeElement($eleveGroupe);
+            // set the owning side to null (unless already changed)
+            if ($eleveGroupe->getEleve() === $this) {
+                $eleveGroupe->setEleve(null);
+            }
         }
 
         return $this;

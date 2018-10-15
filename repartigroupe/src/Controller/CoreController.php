@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\SplFileInfo;
 
 use App\Googleform\Import;
-use App\Calculateur\Groupe;
+use App\Calculateur\Fabriquegroupe;
 
 use League\Csv\Reader;
 use League\Csv\Statement;
@@ -57,12 +57,12 @@ class CoreController extends AbstractController
         );   
     }
 
-    public function calculgroupe(Groupe $groupe)
+    public function calculgroupe(Fabriquegroupe $fabriquegroupe)
     {
         /*
          * On récupère tous les champs EleveAtelier dans un tableau
          */
-        $retour = $groupe->calcul();
+        $retour = $fabriquegroupe->calcul();
         return $this->render('calculgroupe.html.twig',
     		array('retour' => $retour)
     	);

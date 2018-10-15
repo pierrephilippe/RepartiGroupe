@@ -19,9 +19,9 @@ class Groupe
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Eleve", inversedBy="groupes")
+     * @ORM\OneToMany(targetEntity="App\Entity\EleveGroupe", mappedBy="groupe")
      */
-    private $eleve;
+    private $eleveGroupes;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -58,27 +58,32 @@ class Groupe
         return $this->id;
     }
 
-    /**
-     * @return Collection|Eleve[]
+ 	/**
+     * @return Collection|EleveGroupe[]
      */
-    public function getEleve(): Collection
+    public function getEleveGroupes(): Collection
     {
-        return $this->eleve;
+        return $this->eleveGroupes;
     }
 
-    public function addEleve(Eleve $eleve): self
+    public function addEleveGroupe(EleveGroupe $eleveGroupe): self
     {
-        if (!$this->eleve->contains($eleve)) {
-            $this->eleve[] = $eleve;
+        if (!$this->eleveGroupes->contains($eleveGroupe)) {
+            $this->eleveGroupes[] = $eleveGroupe;
+            $eleveGroupe->setGroupe($this);
         }
 
         return $this;
     }
 
-    public function removeEleve(Eleve $eleve): self
+    public function removeEleveGroupe(EleveGroupe $eleveGroupe): self
     {
-        if ($this->eleve->contains($eleve)) {
-            $this->eleve->removeElement($eleve);
+        if ($this->eleveGroupes->contains($eleveGroupe)) {
+            $this->eleveGroupes->removeElement($eleveGroupe);
+            // set the owning side to null (unless already changed)
+            if ($eleveGroupe->getGroupe() === $this) {
+                $eleveGroupe->setGroupe(null);
+            }
         }
 
         return $this;

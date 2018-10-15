@@ -2,32 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\EleveAtelier;
+use App\Entity\EleveGroupe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method EleveAtelier|null find($id, $lockMode = null, $lockVersion = null)
- * @method EleveAtelier|null findOneBy(array $criteria, array $orderBy = null)
- * @method EleveAtelier[]    findAll()
- * @method EleveAtelier[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EleveGroupe|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EleveGroupe|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EleveGroupe[]    findAll()
+ * @method EleveGroupe[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EleveAtelierRepository extends ServiceEntityRepository
+class EleveGroupeRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, EleveAtelier::class);
+        parent::__construct($registry, EleveGroupe::class);
     }
-	
-
-	public function findAllOrdered()
-    {
-        return $this->findBy(array(), array("count('atelier') as 'compteur'" => 'DESC'));
-    }
-
 
 //    /**
-//     * @return EleveAtelier[] Returns an array of EleveAtelier objects
+//     * @return EleveGroupe[] Returns an array of EleveGroupe objects
 //     */
     /*
     public function findByExampleField($value)
@@ -44,7 +37,7 @@ class EleveAtelierRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?EleveAtelier
+    public function findOneBySomeField($value): ?EleveGroupe
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.exampleField = :val')

@@ -31,5 +31,5 @@ services:
     App\Googleform\Import:
         arguments: ['@doctrine.orm.entity_manager']
 
-    App\Calculateur\Groupe:
+    App\Calculateur\Fabriquegroupe:
         arguments: ['@doctrine.orm.entity_manager']
