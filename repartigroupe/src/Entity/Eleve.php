@@ -36,11 +36,6 @@ class Eleve
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EleveAtelier", mappedBy="eleve")
      */
-    private $atelier;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\EleveAtelier", mappedBy="eleve")
-     */
     private $eleveAteliers;
 
     /**

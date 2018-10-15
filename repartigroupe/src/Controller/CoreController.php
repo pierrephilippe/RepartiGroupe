@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\SplFileInfo;
+
+use App\Googleform\Import;
 
 use League\Csv\Reader;
 use League\Csv\Statement;
@@ -17,41 +20,39 @@ class CoreController extends AbstractController
         ]);
     }
 
-    public function lirecsv()
+    public function lirecsv(Import $import)
     {
-        
-        $nb_fichier=0;
-        $listefichiers[] = array();
 
-        if($dossier = opendir('csv'))
-		{	
-	        while(false !== ($fichier = readdir($dossier)))
-			{
-				if($fichier != '.' && $fichier != '..' && $fichier != '.DS_Store')
+		
+		//On détermine quel fichier il faut importer
+
+		$nb_fichier = 0;			//pour vérifier qu'il y a un seul CSV		
+		$path = "csv/";				//dans le dossier public/csv/
+		
+		if($dossier = opendir($path))
+		{
+			while(false !== ($fichier = readdir($dossier)))
+			{	
+				$info = new SplFileInfo($fichier, $path, $path);
+				if((strcmp($info->getExtension(),"csv") == 0) && $nb_fichier == 0)
 				{
-					
-					$listefichiers[$nb_fichier] = $fichier;
-					$nb_fichier++; // On incrémente le compteur de 1
-				} // On ferme le if (qui permet de ne pas afficher index.php, etc.)
-				
-			}
-
-			if($nb_fichier == 1){
-			    // Dump the absolute path
-			    $csv = Reader::createFromPath("csv/".$listefichiers[0], 'r');
-				$csv->setHeaderOffset(0); //set the CSV header offset
-
-				foreach ($csv as $index => $row) {
-				    
+					$nb_fichier++;
+					$fichier_a_importer = $path.$fichier;
 				}
 			}
+		}
 
-	        return $this->render('csv/lire.html.twig', [
-	            'listefichiers' => $listefichiers,
-	            'lignes' => $lignes
-	        ]);
-	    } else {
-			throw new \Exception("Impossible de trouver le dossier CSV");
-	    }
+		
+
+		//On importer le seul fichier CSV trouvé
+		if($nb_fichier == 1){
+			//Appel du service 
+			$contenucsv = $import->csv($fichier_a_importer);
+
+		}
+        return $this->render('csv/lire.html.twig',
+        	array(  'contenucsv' => $contenucsv)
+        );
+        
     }
 }
