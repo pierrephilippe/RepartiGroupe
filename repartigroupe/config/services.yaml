@@ -33,3 +33,6 @@ services:
 
     App\Calculateur\Fabriquegroupe:
         arguments: ['@doctrine.orm.entity_manager']
+
+    App\Calculateur\Export:
+        arguments: ['@doctrine.orm.entity_manager']

@@ -8,8 +8,25 @@
 	    <p class="lead">
 			Résultats
 	    </p>
-	
-		{{ retour }}
-	
+
+
+		<div class="container">
+		  <div class="row">
+			{% for ligne in retour %}
+			<div class="col-4">
+			<h3>{{ ligne.nom_groupe }} ({{ ligne.membres|length }} inscrits) </h3>
+			<!--
+			<ul>
+				{% for membre in ligne.membres %}
+				<li>{{ membre }}</li>
+				{% endfor %}
+			</ul>
+			-->
+			</div>
+			{% endfor %}
+		  </div>
+		</div>
+
+		
 	</div>
 {% endblock %}

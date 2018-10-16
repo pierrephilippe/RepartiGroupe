@@ -13,3 +13,7 @@ app_calculgroupe:
 app_resultats:
     path: /resultats
     controller: App\Controller\CoreController::afficherresultats
+
+app_resultats_csv:
+    path: /resultats_csv
+    controller: App\Controller\CoreController::retournercsv

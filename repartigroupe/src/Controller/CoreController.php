@@ -7,15 +7,18 @@ use Symfony\Component\Finder\SplFileInfo;
 
 use App\Googleform\Import;
 use App\Calculateur\Fabriquegroupe;
+use App\Calculateur\Export;
 
 use League\Csv\Reader;
 use League\Csv\Statement;
 
 use App\Entity\EleveAtelier;
 
+use Doctrine\ORM\EntityManager;
+
 class CoreController extends AbstractController
 {
-    public function index()
+  	public function index()
     {
         return $this->render('index.html.twig', [
             'name' => "toto"
@@ -70,14 +73,22 @@ class CoreController extends AbstractController
     	);
     }
 
-    public function afficherresultats()
+    public function afficherresultats(Export $export)
     {
         /*
          * On récupère tous les champs EleveAtelier dans un tableau
          */
-        $retour = "coucou";
+        $retour = $export->tableau();
         return $this->render('resultats.html.twig',
     		array('retour' => $retour)
     	);
+    }
+
+    public function retournercsv(Export $export)
+    {
+        /*
+         * On récupère tous les champs EleveAtelier dans un tableau
+         */
+        return $export->csv();
     }
 }
