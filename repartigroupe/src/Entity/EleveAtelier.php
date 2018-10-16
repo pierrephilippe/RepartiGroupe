@@ -82,7 +82,7 @@ class EleveAtelier
         return $this->status;
     }
 
-    public function setStatus(?string $question): self
+    public function setStatus(?string $status): self
     {
         $this->status = $status;
 

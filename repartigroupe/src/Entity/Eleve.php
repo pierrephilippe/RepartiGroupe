@@ -42,12 +42,13 @@ class Eleve
      * @ORM\OneToMany(targetEntity="App\Entity\EleveGroupe", mappedBy="eleve")
      */
     private $eleveGroupes;
-
+	
     public function __construct()
     {
         $this->atelier = new ArrayCollection();
         $this->eleveAteliers = new ArrayCollection();
         $this->groupes = new ArrayCollection();
+        $this->eleveGroupes = new ArrayCollection();
     }
 
     public function getId(): ?int

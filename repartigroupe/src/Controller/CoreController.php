@@ -59,11 +59,24 @@ class CoreController extends AbstractController
 
     public function calculgroupe(Fabriquegroupe $fabriquegroupe)
     {
+        set_time_limit(0);
+
         /*
          * On récupère tous les champs EleveAtelier dans un tableau
          */
         $retour = $fabriquegroupe->calcul();
         return $this->render('calculgroupe.html.twig',
+    		array('retour' => $retour)
+    	);
+    }
+
+    public function afficherresultats()
+    {
+        /*
+         * On récupère tous les champs EleveAtelier dans un tableau
+         */
+        $retour = "coucou";
+        return $this->render('resultats.html.twig',
     		array('retour' => $retour)
     	);
     }

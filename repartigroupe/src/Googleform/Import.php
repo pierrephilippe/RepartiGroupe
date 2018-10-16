@@ -105,18 +105,21 @@ class Import
 			$eleveatelier1->setEleve($eleve);
 			$eleveatelier1->setAtelier($atelier1);
 			$eleveatelier1->setQuestion($retour[$key][4]);
+			$eleveatelier1->setStatus("0passage");
 			$this->em->persist($eleveatelier1);
 			
 			$eleveatelier2 = new EleveAtelier;
 			$eleveatelier2->setEleve($eleve);
 			$eleveatelier2->setAtelier($atelier2);
 			$eleveatelier2->setQuestion($retour[$key][6]);
+			$eleveatelier2->setStatus("0passage");
 			$this->em->persist($eleveatelier2);
 			
 			$eleveatelier3 = new EleveAtelier;
 			$eleveatelier3->setEleve($eleve);
 			$eleveatelier3->setAtelier($atelier3);
 			$eleveatelier3->setQuestion($retour[$key][8]);
+			$eleveatelier3->setStatus("0passage");
 			$this->em->persist($eleveatelier3);
 
 			//Enregistrement en BDD

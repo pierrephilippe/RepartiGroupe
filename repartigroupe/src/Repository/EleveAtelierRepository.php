@@ -18,7 +18,37 @@ class EleveAtelierRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, EleveAtelier::class);
     }
+	
+	public function nombreParticipants($values, $limite)
+	{
+		// in your repository
+		/*
+		SELECT c.annee, c.champion
+		FROM championnats c
+		INNER JOIN
+		    (
+		        SELECT champion, COUNT(*) AS nbrChampionnats
+		        FROM championnats
+		        GROUP BY champion
+		    ) a
+		    ON a.champion = c.champion
+		ORDER BY nbrChampionnats, champion, annee;
+		*/
 
+
+		return $this->createQueryBuilder('a')
+		    ->andWhere('a.status = :val')
+            ->setParameter('val', $values['status'])
+            ->andWhere('a.atelier = :val')
+            ->setParameter('val', $values['atelier'])
+		    //->innerjoin('a.atelier', 'b')
+		    //->addselect('count(b) as compteur')
+		    //->orderBy('b.compteur', 'DESC')
+			->setMaxResults($limite)
+            ->getQuery()
+            ->getResult()
+        ;
+	}
 //    /**
 //     * @return EleveAtelier[] Returns an array of EleveAtelier objects
 //     */

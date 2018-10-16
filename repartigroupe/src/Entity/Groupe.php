@@ -51,6 +51,8 @@ class Groupe
     public function __construct()
     {
         $this->eleve = new ArrayCollection();
+        $this->eleveGroupes = new ArrayCollection();
+        $this->groupes = new ArrayCollection();
     }
 
     public function getId(): ?int

@@ -9,3 +9,7 @@ app_lirecsv:
 app_calculgroupe:
     path: /calculgroupe
     controller: App\Controller\CoreController::calculgroupe
+
+app_resultats:
+    path: /resultats
+    controller: App\Controller\CoreController::afficherresultats

@@ -18,68 +18,103 @@ class Fabriquegroupe
   	public function __construct(EntityManager $em) { //Son constructeur avec l'entity manager en paramètre
     	$this->em = $em;
   	}
-
+	
 	public function calcul()
 	{
 		/*
-		 * Etape 1 : on récupère toutes les demandes "ELEVE - ATELIER"
-		 *			 on vérifie que chque élève a bien 3 ateliers
-		 *			 on compte les récurence de chaque atelier et on trie du + grand au - grand nbre
+		 * Etape 1 : Trie des ateliers par demandes
 		 */
-		 $ateliers = $this->em->getRepository(Atelier::class)->findAll();
 		 
+		 //on vérifie au préalable que le traitement n'a pas déjà été fait :
+		 $groupes = $this->em->getRepository(Groupe::class)->findAll();
+		 if(count($groupes) == 0){
+			 $ateliers = $this->em->getRepository(Atelier::class)->findAll();
 
-		 //On trie les ateliers du plus demandé au moins demandé
-		 foreach($ateliers as $key=>$atelier){
-			$nombre[$key] = $atelier->getEleveAteliers()->count();
-			$nbr_participants[$key] = round($nombre[$key]/3)+1;	
-		 }
-		 array_multisort($nombre, SORT_DESC, $ateliers);
-		 array_multisort($nbr_participants, SORT_DESC, $ateliers);
-		
-		 //$ateliers triés
-		 //dump($ateliers);
-		 //dump($nbr_participants);
-		  
-		 //CALCUL DES GROUPE 1
-		 //Selection des "n=nbr_participants" premiers participants à l'atelier 
+			 //On trie les ateliers du plus demandé au moins demandé
+			 foreach($ateliers as $key=>$atelier){
+				$nombre[$key] = $atelier->getEleveAteliers()->count();
+				$nbr_participants[$key] = floor($nombre[$key]/3)+1;	
 
-	
-		 foreach($ateliers as $key2=>$atelier){
-			 //seulement ceux qui ont encore 3 choix !!!
-			 $listes_groupe = $this->em->getRepository(EleveAtelier::class)
-			 					   ->findByAtelier($ateliers[$key]->getId(),  //id_atelier
-			 										null,						//orderby
-			 										$nbr_participants[$key2]		//limit
-			 										);
-			 
-			 
-			 dump($ateliers[$key2]->getNom());
-			 dump($nbr_participants[$key2]);
-			 dump($listes_groupe);
-			
-			 //On crée un nouveau Groupe
-			 $participation = new Groupe;
-			 $participation->setAtelier($ateliers[$key2]);
-			 $participation->setNom("GROUPE 1 ".$ateliers[$key]->getNom());
-			 $this->em->persist($participation);
+				//on en profite pour créer les groupes
+				$groupe1 = new Groupe;
+				$groupe1->setAtelier($ateliers[$key]);
+				$groupe1->setNom("GROUPE 1 ".$ateliers[$key]->getNom());
 
-			 foreach($listes_groupe as $un_participant){
-				//dump($un_participant);
-				$une_participation = new EleveGroupe;
-				$une_participation->setGroupe($participation);
-				$une_participation->setEleve($un_participant->getEleve());
-				$une_participation->setQuestion($un_participant->getQuestion());
-				$this->em->persist($une_participation);
-				$this->em->remove($un_participant);
-				//Enregistrement en BDD
-	    		//$this->em->flush();
+				//on en profite pour créer les groupes
+				$groupe2 = new Groupe;
+				$groupe2->setAtelier($ateliers[$key]);
+				$groupe2->setNom("GROUPE 2 ".$ateliers[$key]->getNom());
+
+				//on en profite pour créer les groupes
+				$groupe3 = new Groupe;
+				$groupe3->setAtelier($ateliers[$key]);
+				$groupe3->setNom("GROUPE 3 ".$ateliers[$key]->getNom());
+
+
+				$this->em->persist($groupe1);
+				$this->em->persist($groupe2);
+				$this->em->persist($groupe3);
+				$this->em->flush();
 			 }
-		 }
-		
+			 array_multisort($nbr_participants, SORT_DESC, $ateliers);
+		}
+		  
 			
-		 
+		 //A ce stade, tous les 1ers groupes sont créés, les élèves ne sont pas affectés
+		 //On fait 3 boucles pour affecter les élèves dans les 3 groupes
+		 for($tour = 1; $tour <=3; $tour++){
+			 
+			 dump($tour);
 
-		 return $ateliers;
+			 //TOUS LES ELEVES
+			 $nombre_eleves = count($this->em->getRepository(Eleve::class)->findAll()) * $tour;
+			 dump($nombre_eleves);
+
+			 //Tant que tous les élèves ne sont pas affectés au groupe
+			 while($nombre_eleves > count($this->em->getRepository(EleveGroupe::class)->findAll()))
+			 {
+				
+				
+				//on parcourt les ateliers par ordres de demandes
+			 	foreach($ateliers as $num_atelier=>$atelier)
+			 	{
+				 	$status = $tour-1;
+					$status.= "passage";
+				 	//on extrait 10% des demandes non traites pour l'atelier en cours
+				 	$eleveatelier_restant = $this->em->getRepository(EleveAtelier::class)
+				 								  	 ->findBy(array(
+				 								  	 	'atelier'=>$ateliers[$num_atelier]->getId(),
+				 								  	 	'status'=> $status),
+				 								  	 	null,
+				 								  	 	round($nbr_participants[$num_atelier]*0.1) //limit +10%
+				 	);
+
+				 	//on cherche le groupe correspondant 
+				 	$groupe = $this->em->getRepository(Groupe::class)->findOneByNom("GROUPE ".$tour." ".$ateliers[$num_atelier]->getNom());
+				 	
+				 	//on ajoute les élèves trouvés ci-dessus dans le groupe
+					foreach($eleveatelier_restant as $un_participant){
+						$une_participation = new EleveGroupe;
+						$une_participation->setGroupe($groupe);								//affecte groupe
+						$une_participation->setEleve($un_participant->getEleve());			//affecte eleve
+						$une_participation->setQuestion($un_participant->getQuestion());	//ajoute question
+						$this->em->persist($une_participation);								
+						
+						//on change le status des souhaits de l'élèves pour dire que le 1er choix est fait
+						$tous_choix_de_l_eleve = $this->em->getRepository(EleveAtelier::class)
+														  ->findByEleve($un_participant->getEleve());
+						foreach($tous_choix_de_l_eleve as $un_choix_de_l_eleve){
+							$un_choix_de_l_eleve->setStatus($tour."passage");
+							$this->em->persist($un_choix_de_l_eleve);
+						}
+						//on supprime le choix qui est maintenant pris en compte
+						$this->em->remove($un_participant);
+
+						//Enregistrement en BDD
+			    		$this->em->flush();
+					 }
+				  }
+			 }
+		}
 	}
 }
