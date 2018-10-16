@@ -44,22 +44,18 @@ class Fabriquegroupe
 		 //CALCUL DES GROUPE 1
 		 //Selection des "n=nbr_participants" premiers participants à l'atelier 
 
-		 $listes_groupe = $this->em->getRepository(EleveAtelier::class)->findAllOrdered();
-
+	
 		 foreach($ateliers as $key2=>$atelier){
-			 
+			 //seulement ceux qui ont encore 3 choix !!!
 			 $listes_groupe = $this->em->getRepository(EleveAtelier::class)
 			 					   ->findByAtelier($ateliers[$key]->getId(),  //id_atelier
 			 										null,						//orderby
-			 										$nbr_participants[$key]		//limit
+			 										$nbr_participants[$key2]		//limit
 			 										);
 			 
 			 
-			 
-			 dump($ateliers[$key2]->getId());
+			 dump($ateliers[$key2]->getNom());
 			 dump($nbr_participants[$key2]);
-			
-			 
 			 dump($listes_groupe);
 			
 			 //On crée un nouveau Groupe

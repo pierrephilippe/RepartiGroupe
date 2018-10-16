@@ -18,13 +18,6 @@ class EleveAtelierRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, EleveAtelier::class);
     }
-	
-
-	public function findAllOrdered()
-    {
-        return $this->findBy(array(), array("count('atelier') as 'compteur'" => 'DESC'));
-    }
-
 
 //    /**
 //     * @return EleveAtelier[] Returns an array of EleveAtelier objects

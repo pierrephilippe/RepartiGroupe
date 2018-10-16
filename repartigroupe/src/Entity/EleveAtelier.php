@@ -31,6 +31,11 @@ class EleveAtelier
      */
     private $question;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class EleveAtelier
     public function setQuestion(?string $question): self
     {
         $this->question = $question;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $question): self
+    {
+        $this->status = $status;
 
         return $this;
     }
