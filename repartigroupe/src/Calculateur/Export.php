@@ -59,7 +59,19 @@ class Export
  
         $response->setCallback(function() use ($eleves){
             $handle = fopen('php://output', 'w+');
- 
+ 			fputs($handle, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF)));
+ 			$values = [
+				"NOM",
+				"PRENOM",
+				"CLASSE",
+				"GROUPE 1",
+				"QUESTION 1",
+				"GROUPE 2",
+				"QUESTION 2",
+				"GROUPE 3",
+				"QUESTION 3\n"
+ 			];
+ 			fwrite($handle, implode(';', $values));
             foreach ($eleves as $eleve)
             {
             	$values = [
