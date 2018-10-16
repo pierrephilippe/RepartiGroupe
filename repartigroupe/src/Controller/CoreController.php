@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\Finder\SplFileInfo;
 
 use App\Googleform\Import;
@@ -13,16 +15,46 @@ use League\Csv\Reader;
 use League\Csv\Statement;
 
 use App\Entity\EleveAtelier;
-
-use Doctrine\ORM\EntityManager;
+use App\Entity\Document;
+use App\Form\DocumentType;
 
 class CoreController extends AbstractController
 {
-  	public function index()
+  	public function index(Request $request)
     {
-        return $this->render('index.html.twig', [
-            'name' => "toto"
-        ]);
+        $document = new Document();
+        $form = $this->createForm(DocumentType::class, $document);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $file stores the uploaded PDF file
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $document->getDocument();
+
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+            // Move the file to the directory where brochures are stored
+            try {
+                $file->move(
+                    $this->getParameter('document_directory'),
+                    $fileName
+                );
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+
+            // updates the 'brochure' property to store the PDF file name
+            // instead of its contents
+            $document->setDocument($fileName);
+
+            // ... persist the $product variable or any other work
+
+            return $this->redirect($this->generateUrl('app_product_list'));
+        }
+
+        return $this->render('index.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     public function lirecsv(Import $import)

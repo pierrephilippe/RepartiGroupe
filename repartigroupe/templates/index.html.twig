@@ -11,20 +11,14 @@
 	    </p>
 	
 	
-	    <form class="">
-	    	<div class="row">
-				<div class="col-md-9 mb-3">
-				  <input type="file" class="custom-file-input" id="customFile">
-				  <label class="custom-file-label" for="customFile">
-					Charger le fichier CSV
-				  </label>
-				</div>
-				
-				<div class="col-md-3 mb-3">
-					<button class="btn btn-primary col-md-12 mb-3" type="submit">Envoyer</button>
-				</div>
-			</div>
-	    </form>
+	    {# templates/product/new.html.twig #}
+		<h1>Charger le CSV de Google</h1>
+
+		{{ form_start(form) }}
+		    {# ... #}
+
+		    {{ form_row(form.document) }}
+		{{ form_end(form) }}
 		
 
 		<p class="alert alert-info">

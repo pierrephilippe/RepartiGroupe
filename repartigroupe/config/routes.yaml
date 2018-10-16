@@ -1,6 +1,6 @@
 app_home:
     path: /
-    controller: App\Controller\CoreController::index
+    controller: App\Controller\DocumentController::new
 
 app_lirecsv:
     path: /lirecsv
