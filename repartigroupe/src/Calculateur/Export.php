@@ -46,7 +46,7 @@ class Export
 		return $retour;
 	}
 
-	public function csv()
+	public function csv_secretariat()
 	{
 		$retour = array();
 

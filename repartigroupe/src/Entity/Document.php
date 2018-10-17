@@ -12,7 +12,10 @@ class Document
      * @ORM\Column(type="string")
      *
      * @Assert\NotBlank(message="Sélectionnez le fichier csv")
-     * @Assert\File(mimeTypes={ "text/plain" })
+     * @Assert\File(
+     *     maxSize = "2048k",
+     *     mimeTypes={ "text/plain", "text/csv" }),
+     *     mimeTypesMessage = "Veuillez charger un fichier CSV valide"
      */
     private $document;
 

@@ -2,6 +2,7 @@
 
 namespace App\Calculateur;
 
+use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityManager;
 
 use App\Entity\Eleve;
@@ -21,6 +22,12 @@ class Fabriquegroupe
 	
 	public function calcul()
 	{
+		//initialisation barre de progression
+		$compteur = 0;
+		$percent = 0;
+		$total = count($this->em->getRepository(EleveAtelier::class)->findAll());
+		
+
 		/*
 		 * Etape 1 : Trie des ateliers par demandes
 		 */
@@ -64,11 +71,11 @@ class Fabriquegroupe
 		 //On fait 3 boucles pour affecter les élèves dans les 3 groupes
 		 for($tour = 1; $tour <=3; $tour++){
 			 
-			 dump($tour);
+			 //dump($tour);
 
 			 //TOUS LES ELEVES
 			 $nombre_eleves = count($this->em->getRepository(Eleve::class)->findAll()) * $tour;
-			 dump($nombre_eleves);
+			 //dump($nombre_eleves);
 
 			 //Tant que tous les élèves ne sont pas affectés au groupe
 			 while($nombre_eleves > count($this->em->getRepository(EleveGroupe::class)->findAll()))
@@ -112,9 +119,20 @@ class Fabriquegroupe
 
 						//Enregistrement en BDD
 			    		$this->em->flush();
+			    		
+			    		//POUR LA BARRE DE PROGRESSION
+						$compteur ++;
+						$session = new Session();
+						$pourcent = round($compteur*100/$total);
+						$session->set('progress',$pourcent);
+						$session->set('compteur',$compteur);
+						$session->save();
+
 					 }
 				  }
 			 }
 		}
+
+		return true;
 	}
 }

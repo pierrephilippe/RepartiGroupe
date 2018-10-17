@@ -1,19 +1,23 @@
 app_home:
     path: /
-    controller: App\Controller\DocumentController::new
+    controller: App\Controller\CoreController::index
 
-app_lirecsv:
-    path: /lirecsv
-    controller: App\Controller\CoreController::lirecsv
+app_getprogress:
+    path: /getprogress
+    controller: App\Controller\ProgressController::getProgress
 
-app_calculgroupe:
-    path: /calculgroupe
-    controller: App\Controller\CoreController::calculgroupe
+app_etape2:
+    path: /etape2
+    controller: App\Controller\CoreController::etape2
 
-app_resultats:
-    path: /resultats
-    controller: App\Controller\CoreController::afficherresultats
+app_etape3:
+    path: /etape3
+    controller: App\Controller\CoreController::etape3
 
-app_resultats_csv:
-    path: /resultats_csv
-    controller: App\Controller\CoreController::retournercsv
+app_etape4:
+    path: /etape4
+    controller: App\Controller\CoreController::etape4
+
+app_resultats_csv_secretariat:
+    path: /app_resultats_csv_secretariat
+    controller: App\Controller\CoreController::retourner_csv_secretariat

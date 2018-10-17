@@ -1,0 +1,37 @@
+<h4>Fichier à transmettre au secrétariat</h4>
+<a href="{{ path('app_resultats_csv_secretariat')}}" class="btn btn-success">Télécharger</a>
+
+
+
+<table class="table table-sm table-striped table-hover" style="margin-top:25px">
+  <thead>
+    <tr>
+      <th scope="col">Nom du groupe</th>
+      <th scope="col">Nombre d'inscrits</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+	{% for key, ligne in retour %}
+	{% if key%3 == 0 %}
+	<tr class="table-success">
+	{% elseif key%3 == 1 %}
+	<tr class="table-warning">
+	{% else %}
+	<tr class="table-danger">
+	{% endif %}
+
+		<td scope="col">{{ ligne.nom_groupe }}</td>
+		<td scope="col">{{ ligne.membres|length }}</td>
+		<!--
+		<ul>
+			{% for membre in ligne.membres %}
+			<li>{{ membre }}</li>
+			{% endfor %}
+		</ul>
+		-->
+	</tr>
+	{% endfor %}
+
+  </tbody>
+</table>

@@ -2,6 +2,8 @@
 
 namespace App\Googleform;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
 use Doctrine\ORM\EntityManager;
 use League\Csv\Reader;
 use League\Csv\Statement;
@@ -21,10 +23,15 @@ class Import
 
 	public function csv($fichier)
 	{
-
+			
 		$reader = Reader::createFromPath($fichier, 'r');
 		$reader->setHeaderOffset(0);
 		
+		//initialisation barre de progression
+		$compteur = 0;
+		$percent = 0;
+		$total = count(file($fichier));
+
 		/*
 		 * Dans l'entete du fichier google form, les champs ne sont pas unique.
 		 * ceci pour transfomer l'entete en 1-champ, 2-champ, etc.
@@ -124,6 +131,15 @@ class Import
 
 			//Enregistrement en BDD
     		$this->em->flush();
+
+    		//POUR LA BARRE DE PROGRESSION
+			$compteur ++;
+			$session = new Session();
+			$pourcent = round($compteur*100/$total);
+			$session->set('progress',$pourcent);
+			$session->set('compteur',$compteur);
+			$session->save();
+				
 		}
 
 		
