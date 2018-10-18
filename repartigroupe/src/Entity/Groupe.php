@@ -48,6 +48,11 @@ class Groupe
      */
     private $atelier;
 
+    /**
+     * @ORM\Column(type="integer", length=255, nullable=true)
+     */
+    private $nbparticipant;
+
     public function __construct()
     {
         $this->eleve = new ArrayCollection();
@@ -99,6 +104,18 @@ class Groupe
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+    
+	public function getNbparticipant(): ?int
+    {
+        return $this->nbparticipant;
+    }
+
+    public function setNbparticipant(int $nbparticipant): self
+    {
+        $this->nbparticipant = $nbparticipant;
 
         return $this;
     }

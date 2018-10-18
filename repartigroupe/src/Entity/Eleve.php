@@ -92,6 +92,18 @@ class Eleve
         return $this;
     }
 
+	public function getNbparticipant(): ?int
+    {
+        return $this->nbparticipant;
+    }
+
+    public function setNbparticipant(int $nbparticipant): self
+    {
+        $this->nbparticipant = $nbparticipant;
+
+        return $this;
+    }
+    
     /**
      * @return Collection|EleveAtelier[]
      */

@@ -18,6 +18,19 @@ class GroupeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Groupe::class);
     }
+	
+
+	public function findByNomBegin($value)
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.nom LIKE :val')
+            ->setParameter('val', $value.'%')
+            ->orderBy('g.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
 //    /**
 //     * @return Groupe[] Returns an array of Groupe objects

@@ -32,7 +32,13 @@ class Atelier
      * @ORM\OneToMany(targetEntity="App\Entity\Groupe", mappedBy="atelier")
      */
     private $groupes;
+	
+	/**
+     * @ORM\Column(type="integer", length=255, nullable=true)
+     */
+    private $nbparticipant;
 
+    
     public function __construct()
     {
         $this->eleveAteliers = new ArrayCollection();
@@ -56,6 +62,18 @@ class Atelier
         return $this;
     }
 
+	public function getNbparticipant(): ?int
+    {
+        return $this->nbparticipant;
+    }
+
+    public function setNbparticipant(int $nbparticipant): self
+    {
+        $this->nbparticipant = $nbparticipant;
+
+        return $this;
+    }
+    
     /**
      * @return Collection|EleveAtelier[]
      */
