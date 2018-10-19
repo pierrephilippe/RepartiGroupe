@@ -126,7 +126,7 @@ class CoreController extends AbstractController
 		 * Calcul des groupes
 		 */
 		if ($request->isMethod('POST')){
-			set_time_limit(0);
+			//set_time_limit(0);
 	        $retour = $fabriquegroupe->calcul();
 			return new Response ("Chargement terminé ");
 		}
