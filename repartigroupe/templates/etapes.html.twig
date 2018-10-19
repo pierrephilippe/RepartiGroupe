@@ -110,7 +110,11 @@ $(document).ready (function() {
 	            	$("#compteur").text('('+data['compteur']+')'); 
 	            },
 	            complete: function(){
-	                checkfx();
+	                setTimeout(
+				    function() 
+				    {
+				     	checkfx();
+				    }, 500);
 	            }
 	        });
 	    }
