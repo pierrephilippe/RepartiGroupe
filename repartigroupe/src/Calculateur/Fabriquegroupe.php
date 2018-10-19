@@ -16,12 +16,133 @@ use App\Entity\EleveGroupe;
 class Fabriquegroupe
 {
 	private $em;
+	private $compteur;
+	private $percent;
+	private $total;
+	private $session;
 
   	public function __construct(EntityManager $em) { //Son constructeur avec l'entity manager en paramètre
     	$this->em = $em;
   	}
-
+	
 	public function calcul()
+	{	
+		ini_set('max_execution_time', 600); //10 minutes de calcul
+		ini_set('memory_limit', '-1');
+		//initialisation barre de progression
+		$this->compteur = 0;
+		$this->percent = 0;
+		$this->total = count($this->em->getRepository(EleveAtelier::class)->findAll());
+
+
+		//on vérifie au préalable que le traitement n'a pas déjà été fait :
+		$groupes = $this->em->getRepository(Groupe::class)->findAll();
+		if(count($groupes) == 0){
+			 $ateliers = $this->em->getRepository(Atelier::class)->findAll();
+
+			 //On trie les ateliers du plus demandé au moins demandé
+			 foreach($ateliers as $key=>$atelier){
+				$nombre[$key] = $atelier->getEleveAteliers()->count();
+				$nbr_participants[$key] = floor($nombre[$key]/3)+1;	
+
+				//on en profite pour créer les groupes
+				$groupe1 = new Groupe;
+				$groupe1->setAtelier($ateliers[$key]);
+				$groupe1->setNbparticipant($nbr_participants[$key]);
+				$groupe1->setNom("GROUPE 1 ".$ateliers[$key]->getNom());
+
+				//on en profite pour créer les groupes
+				$groupe2 = new Groupe;
+				$groupe2->setAtelier($ateliers[$key]);
+				$groupe2->setNbparticipant($nbr_participants[$key]);
+				$groupe2->setNom("GROUPE 2 ".$ateliers[$key]->getNom());
+
+				//on en profite pour créer les groupes
+				$groupe3 = new Groupe;
+				$groupe3->setAtelier($ateliers[$key]);
+				$groupe3->setNbparticipant($nbr_participants[$key]);
+				$groupe3->setNom("GROUPE 3 ".$ateliers[$key]->getNom());
+
+				$atelier->setNbparticipant($nbr_participants[$key]);
+				$this->em->persist($atelier);
+				$this->em->persist($groupe1);
+				$this->em->persist($groupe2);
+				$this->em->persist($groupe3);
+				$this->em->flush();
+			 }
+			 array_multisort($nbr_participants, SORT_ASC, $ateliers);
+		}
+		
+		for($tour = 1; $tour <=3; $tour++){
+			//on trie les élèves par demandeurs les plus nombreaux tout atelier confondu.
+			$eleves = $this->em->getRepository(Eleve::class)->findAll();
+			//array_splice($eleves,10);
+
+			foreach($eleves as $key=>$eleve)
+			{
+				$souhaits = $eleve->getEleveAteliers();
+				$poids[$key]=0;
+				foreach($souhaits as $souhait)
+				{
+					$atelier = $souhait->getAtelier()->getNbparticipant();
+					$poids[$key] += $atelier;
+				}
+			}
+			array_multisort($poids, SORT_ASC, $eleves);
+			//ici on a un trie des élèves par ordre d'atelier les plus demandés.
+
+			foreach($eleves as $key=>$eleve)
+			{
+				//maintenant pour chaque élève on cherche l'atelier le plus demandé qui n'est pas plein et on rempli.
+				$souhaits = $eleve->getEleveAteliers();
+		
+				$index_souhaits= array();
+				$places_restantes = array();
+				foreach($souhaits as $key=>$souhait){
+					$groupe = $this->em->getRepository(Groupe::class)->findOneByNom('GROUPE '.$tour.' '.$souhait->getAtelier()->getNom());
+					$places_restantes[$key] = $groupe->getNbparticipant();
+					$index_souhaits[$key] = $key;
+				}
+				array_multisort($places_restantes, SORT_DESC,
+								$index_souhaits);
+
+				//dump("on inscrit élève ".$eleve->getNom()." dans atelier ".$souhaits[$index_souhaits[0]]->getAtelier()->getNom()." pour le tour ".$tour);
+				$this->affecte($souhaits[$index_souhaits[0]], $tour);
+
+			}
+		}
+		//die();
+
+		return true;
+
+
+	}
+
+	private function affecte(EleveAtelier $eleveatelier, $tour){
+		$groupe = $this->em->getRepository(Groupe::class)->findOneByNom('GROUPE '.$tour.' '.$eleveatelier->getAtelier()->getNom());
+		$une_participation = new EleveGroupe;
+		$une_participation->setGroupe($groupe);								//affecte groupe
+		$une_participation->setEleve($eleveatelier->getEleve());			//affecte eleve
+		$une_participation->setQuestion($eleveatelier->getQuestion());	//ajoute question
+		$this->em->persist($une_participation);	
+		$this->em->remove($eleveatelier);
+
+		$groupe->setNbparticipant($groupe->getNbparticipant() - 1);
+		$this->em->persist($groupe);
+		
+		$this->em->flush();
+
+		//POUR LA BARRE DE PROGRESSION
+		$this->compteur ++;
+		$this->session = new Session();
+		$this->pourcent = round($this->compteur*100/$this->total);
+		$this->session->set('progress',$this->pourcent);
+		$this->session->set('compteur',$this->compteur);
+		$this->session->save();
+
+	}
+
+	public function calcul_ok()
 	{
 		//initialisation barre de progression
 		$compteur = 0;
@@ -174,7 +295,7 @@ class Fabriquegroupe
 		return true;
 	}
 
-	public function calcul_ok()
+	public function calcul_ok_old()
 	{
 		//initialisation barre de progression
 		$compteur = 0;
