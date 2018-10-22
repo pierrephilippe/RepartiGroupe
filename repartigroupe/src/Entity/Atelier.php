@@ -37,7 +37,11 @@ class Atelier
      * @ORM\Column(type="integer", length=255, nullable=true)
      */
     private $nbparticipant;
-
+	
+	/**
+     * @ORM\Column(type="integer", length=255, nullable=true)
+     */
+    private $poids;
     
     public function __construct()
     {
@@ -70,6 +74,18 @@ class Atelier
     public function setNbparticipant(int $nbparticipant): self
     {
         $this->nbparticipant = $nbparticipant;
+
+        return $this;
+    }
+
+    public function getPoids(): ?int
+    {
+        return $this->poids;
+    }
+
+    public function setPoids(int $poids): self
+    {
+        $this->poids = $poids;
 
         return $this;
     }
