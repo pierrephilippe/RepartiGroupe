@@ -18,6 +18,16 @@ app_etape4:
     path: /etape4
     controller: App\Controller\CoreController::etape4
 
+app_ajoute:
+    path: /ajoute/{id}
+    controller: App\Controller\CoreController::ajoute
+
+app_retire:
+    path: /retire/{id}
+    controller: App\Controller\CoreController::retire
+    requirements:
+        id:   \d+
+
 app_resultats_csv_secretariat:
     path: /app_resultats_csv_secretariat
     controller: App\Controller\CoreController::retourner_csv_secretariat

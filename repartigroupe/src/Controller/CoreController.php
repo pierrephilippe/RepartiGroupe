@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Symfony\Component\Finder\SplFileInfo;
 use App\Googleform\Import;
@@ -156,6 +157,18 @@ class CoreController extends AbstractController
         	'titre_etape' => "Etape 4 - Génération du fichier de retour",
         	'retour' => $retour));
     }
+
+	public function ajoute($id, Request $request, Fabriquegroupe $fabriquegroupe)
+	{
+		$retour = $fabriquegroupe->ajoute($id);
+		return $this->redirectToRoute('app_etape4', array('retourajoute' => $retour));
+	}
+
+	public function retire($id, Request $request, Fabriquegroupe $fabriquegroupe)
+	{
+		$retour = $fabriquegroupe->retire($id);
+		//return $this->redirectToRoute('app_etape4');
+	}
 
     public function retourner_csv_secretariat(Export $export)
     {

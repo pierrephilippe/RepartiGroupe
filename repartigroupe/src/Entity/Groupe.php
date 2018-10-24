@@ -52,6 +52,11 @@ class Groupe
      * @ORM\Column(type="integer", length=255, nullable=true)
      */
     private $nbparticipant;
+	
+	/**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $tour;
 
     public function __construct()
     {
@@ -164,6 +169,18 @@ class Groupe
     public function setAtelier(?Atelier $atelier): self
     {
         $this->atelier = $atelier;
+
+        return $this;
+    }
+
+    public function getTour(): ?string
+    {
+        return $this->tour;
+    }
+
+    public function setTour(string $tour): self
+    {
+        $this->tour = $tour;
 
         return $this;
     }

@@ -31,10 +31,22 @@ class Export
 
 		foreach($groupes as $key=>$groupe)
 		{
+			
 			$retour[$key]['nom_groupe'] = $groupe->getNom();
 			$membres =  $groupe->getEleveGroupes();
 			$retour[$key]['membres'] = array();
+			
+			$retour[$key]['ajoute'] = false;
+			$retour[$key]['retire'] = false;
+			if($groupe->getNbparticipant() > 0)
+			{
+				//il reste de la place
+				$retour[$key]['ajoute'] = true;
+			} else {
+				$retour[$key]['retire'] = true;
+			}
 
+			$retour[$key]['id_groupe'] = $groupe->getId();
 			foreach($membres as $key2=>$membre)
 			{
 				$retour[$key]['membres'][] = $membre->getEleve()->getNom()." "
