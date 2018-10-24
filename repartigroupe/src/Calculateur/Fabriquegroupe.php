@@ -23,6 +23,7 @@ class Fabriquegroupe
 
 	public function calcul()
 	{
+		set_time_limit(600);
 		//initialisation barre de progression
 		$compteur = 0;
 		$percent = 0;
