@@ -16,7 +16,7 @@
 
 <!--DESCRIPTION ETAPE-->
 <h3>{{ titre_etape }}</h3>
-	{% if etape != 4 %}
+	{% if etape != 6 %}
 	<div class="progress" id="progressImport">
 	  <div class="progress-bar progress-bar-striped bg-success" id="progressBar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 	</div>
@@ -28,7 +28,7 @@
 		{% include 'csv/new.html.twig' %}
 	{% endif %}
 
-	{% if etape == 4 %}
+	{% if etape == 6 %}
 		{% include 'csv/export.html.twig' with {'retour': retour} %}
 	{% endif %}
 

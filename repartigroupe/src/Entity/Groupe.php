@@ -29,6 +29,11 @@ class Groupe
     private $nom;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $num;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Intervenant", inversedBy="groupes")
      */
     private $intervenant;
@@ -104,6 +109,18 @@ class Groupe
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getNum(): ?string
+    {
+        return $this->num;
+    }
+
+    public function setNum(string $num): self
+    {
+        $this->num = $num;
 
         return $this;
     }

@@ -18,6 +18,14 @@ app_etape4:
     path: /etape4
     controller: App\Controller\CoreController::etape4
 
+app_etape5:
+    path: /etape5
+    controller: App\Controller\CoreController::etape5
+
+app_etape6:
+    path: /etape6
+    controller: App\Controller\CoreController::etape6
+
 app_resultats_csv_secretariat:
     path: /app_resultats_csv_secretariat
     controller: App\Controller\CoreController::retourner_csv_secretariat

@@ -21,7 +21,7 @@ use App\Services\Reinitialisation;
 
 class CoreController extends AbstractController
 {
-	private $nb_etape=4;
+	private $nb_etape=6;
 
 	public function index(Request $request, Reinitialisation $reinitialisation)
 	{
@@ -117,10 +117,32 @@ class CoreController extends AbstractController
         	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
         	'titre_etape' => "Etape 2 - import en base de donnée",
         	'url_action' => 'app_etape2',
-        	'url_suivant' => 'app_etape3'));
+        	'url_suivant' => 'app_etape3'
+        ));
     }
 
-	public function etape3(Request $request, Fabriquegroupe $fabriquegroupe)
+	public function etape3(Request $request, Import $import)
+    {
+		/*
+		 * Import du fichier uploadé en BDD
+		 */
+
+		if ($request->isMethod('POST')){
+			$contenucsv = $import->creer_groupe();
+
+			return new Response ("Chargement terminé ");
+		}
+		return $this->render('etapes.html.twig',array(
+        	'etape' => 3,
+        	'nb_etape' =>$this->nb_etape,
+        	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
+        	'titre_etape' => "Etape 3 - Créer les groupes",
+        	'url_action' => 'app_etape3',
+        	'url_suivant' => 'app_etape4'
+        	));
+    }
+
+	public function etape4(Request $request, Fabriquegroupe $fabriquegroupe)
     {
 		/*
 		 * Calcul des groupes
@@ -131,16 +153,36 @@ class CoreController extends AbstractController
 			return new Response ("Chargement terminé ");
 		}
 		return $this->render('etapes.html.twig',array(
-        	'etape' => 3,
+        	'etape' => 4,
         	'nb_etape' =>$this->nb_etape,
         	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
-        	'titre_etape' => "Etape 3 - calcul des groupes",
-        	'url_action' => 'app_etape3',
-        	'url_suivant' => 'app_etape4'
+        	'titre_etape' => "Etape 4 - calcul des groupes",
+        	'url_action' => 'app_etape4',
+        	'url_suivant' => 'app_etape5'
         ));
     }
 
-    public function etape4(Request $request, Export $export)
+	public function etape5(Request $request, Fabriquegroupe $fabriquegroupe)
+    {
+		/*
+		 * Calcul des groupes
+		 */
+		if ($request->isMethod('POST')){
+			//set_time_limit(0);
+	        $retour = $fabriquegroupe->ajuste();
+			return new Response ("Ajustement terminé ");
+		}
+		return $this->render('etapes.html.twig',array(
+        	'etape' => 5,
+        	'nb_etape' =>$this->nb_etape,
+        	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
+        	'titre_etape' => "Etape 5 - ajustement des groupes",
+        	'url_action' => 'app_etape5',
+        	'url_suivant' => 'app_etape6'
+        ));
+    }
+
+    public function etape6(Request $request, Export $export)
     {
 
 		/*
@@ -150,10 +192,10 @@ class CoreController extends AbstractController
 
 		
 		return $this->render('etapes.html.twig',array(
-        	'etape' => 4,
+        	'etape' => 6,
         	'nb_etape' =>$this->nb_etape,
         	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
-        	'titre_etape' => "Etape 4 - Génération du fichier de retour",
+        	'titre_etape' => "Etape 6 - Génération du fichier de retour",
         	'retour' => $retour));
     }
 

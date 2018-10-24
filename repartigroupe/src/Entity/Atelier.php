@@ -34,12 +34,12 @@ class Atelier
     private $groupes;
 	
 	/**
-     * @ORM\Column(type="integer", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $nbparticipant;
 	
 	/**
-     * @ORM\Column(type="integer", length=255, nullable=true)
+     * @ORM\Column(type="bigint", nullable=true)
      */
     private $poids;
     

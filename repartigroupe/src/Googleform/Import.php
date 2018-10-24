@@ -12,6 +12,7 @@ use App\Entity\Eleve;
 use App\Entity\Classe;
 use App\Entity\Atelier;
 use App\Entity\EleveAtelier;
+use App\Entity\Groupe;
 
 class Import
 {
@@ -89,6 +90,7 @@ class Import
       		if (null === $atelier1) {
       			$atelier1 = new Atelier;
       			$atelier1->setNom($retour[$key][3]);
+      			$atelier1->setNbparticipant(0);
       			$this->em->persist($atelier1);
 			}
 
@@ -97,6 +99,7 @@ class Import
       		if (null === $atelier2) {
       			$atelier2 = new Atelier;
       			$atelier2->setNom($retour[$key][5]);
+      			$atelier2->setNbparticipant(0);
 				$this->em->persist($atelier2);
 			}
 
@@ -105,22 +108,28 @@ class Import
       		if (null === $atelier3) {
       			$atelier3 = new Atelier;
       			$atelier3->setNom($retour[$key][7]);
+      			$atelier3->setNbparticipant(0);
       			$this->em->persist($atelier3);
 			}
 			
+
 			$eleveatelier1 = new EleveAtelier;
 			$eleveatelier1->setEleve($eleve);
 			$eleveatelier1->setAtelier($atelier1);
 			$eleveatelier1->setQuestion($retour[$key][4]);
 			$eleveatelier1->setStatus("0passage");
 			$this->em->persist($eleveatelier1);
-			
+			$atelier1->setNbparticipant($atelier1->getNbparticipant()+1);
+			$this->em->persist($atelier1);
+
 			$eleveatelier2 = new EleveAtelier;
 			$eleveatelier2->setEleve($eleve);
 			$eleveatelier2->setAtelier($atelier2);
 			$eleveatelier2->setQuestion($retour[$key][6]);
 			$eleveatelier2->setStatus("0passage");
 			$this->em->persist($eleveatelier2);
+			$atelier2->setNbparticipant($atelier2->getNbparticipant()+1);
+			$this->em->persist($atelier2);
 			
 			$eleveatelier3 = new EleveAtelier;
 			$eleveatelier3->setEleve($eleve);
@@ -128,10 +137,14 @@ class Import
 			$eleveatelier3->setQuestion($retour[$key][8]);
 			$eleveatelier3->setStatus("0passage");
 			$this->em->persist($eleveatelier3);
+			$atelier3->setNbparticipant($atelier3->getNbparticipant()+1);
+			$this->em->persist($atelier3);
 
 			//Enregistrement en BDD
     		$this->em->flush();
 
+    		//Ajout le poids aux ateliers
+			$this->trie_atelier();
     		//POUR LA BARRE DE PROGRESSION
 			$compteur ++;
 			$session = new Session();
@@ -145,6 +158,62 @@ class Import
 		
 
 		return $retour;
+	}
+	
+	public function trie_atelier()
+	{	
+		$ateliers = $this->em->getRepository(Atelier::class)->findBy(
+														array(),
+														array('nbparticipant' => 'ASC')
+		);
+		foreach ($ateliers as $key => $atelier) {
+			$atelier->setPoids(pow(10,$key));
+			$this->em->persist($atelier);
+		}
+		$this->em->flush();
+
+	}
+
+	public function creer_groupe()
+	{
+
+		$groupes = $this->em->getRepository(Groupe::class)->findAll();
+		if(count($groupes) == 0){
+			 $ateliers = $this->em->getRepository(Atelier::class)->findAll();
+
+			 //On trie les ateliers du plus demandé au moins demandé
+			 foreach($ateliers as $key=>$atelier){
+				$nombre[$key] = $atelier->getNbparticipant();
+				$nbr_participants[$key] = floor($nombre[$key]/3)+1;	
+
+				//on en profite pour créer les groupes
+				$groupe1 = new Groupe;
+				$groupe1->setAtelier($ateliers[$key]);
+				$groupe1->setNum(1);
+				$groupe1->setNbparticipant($nbr_participants[$key]);
+				$groupe1->setNom("GROUPE 1 ".$ateliers[$key]->getNom());
+
+				//on en profite pour créer les groupes
+				$groupe2 = new Groupe;
+				$groupe2->setAtelier($ateliers[$key]);
+				$groupe2->setNum(2);
+				$groupe2->setNbparticipant($nbr_participants[$key]);
+				$groupe2->setNom("GROUPE 2 ".$ateliers[$key]->getNom());
+
+				//on en profite pour créer les groupes
+				$groupe3 = new Groupe;
+				$groupe3->setAtelier($ateliers[$key]);
+				$groupe3->setNum(3);
+				$groupe3->setNbparticipant($nbr_participants[$key]);
+				$groupe3->setNom("GROUPE 3 ".$ateliers[$key]->getNom());
+
+				$this->em->persist($groupe1);
+				$this->em->persist($groupe2);
+				$this->em->persist($groupe3);
+				$this->em->flush();
+			 }
+		}
+		return true;
 
 	}
 
