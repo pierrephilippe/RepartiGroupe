@@ -76,8 +76,7 @@ class CoreController extends AbstractController
 	        	'nb_etape' => $this->nb_etape,
 	        	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape1'),
 	        	'titre_etape' => "Etape 1",
-	        	'form' => $form->createView(),
-	        	'info' => "Téléchargez un exemple du fichier CSV : <a href=''>Fichier CSV</a>"
+	        	'form' => $form->createView()
         	)
         );  
 	}
