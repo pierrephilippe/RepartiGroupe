@@ -103,7 +103,7 @@ class Fabriquegroupe
 				 if($tour == 2){
 					array_multisort($nbr_participants, SORT_DESC, $groupes);
 				 }
-
+				 
 
 
 
@@ -118,7 +118,10 @@ class Fabriquegroupe
 					
 					
 					if($groupe->getNbparticipant() > 0){
-						$selection = round($groupe->getNbparticipant()*0.8);
+						$selection = round($groupe->getNbparticipant()/3);
+						if($selection < 1){
+							$selection = 1;
+						}
 					} else {
 						$selection = 1;
 					}
