@@ -25,7 +25,12 @@ class CoreController extends AbstractController
 
 	public function index(Request $request, Reinitialisation $reinitialisation)
 	{
-		/*
+		
+		$session = new Session();
+		$session->set('progress',0);
+		$session->set('compteur',0);
+		$session->save();
+			/*
 		 * Upload du fichier CSV | Réinitialisation de la BDD
 		 */
 		$document = new Document();
