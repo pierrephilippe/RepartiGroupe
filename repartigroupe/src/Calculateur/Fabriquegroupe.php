@@ -104,9 +104,6 @@ class Fabriquegroupe
 					array_multisort($nbr_participants, SORT_DESC, $groupes);
 				 }
 				 
-
-
-
 				
 				//on parcourt les ateliers par ordres de demandes
 			 	foreach($groupes as $num_groupe=>$groupe)
