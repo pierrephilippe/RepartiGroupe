@@ -11,7 +11,11 @@
 		<table class="table table-sm table-striped table-hover" style="margin-top:25px">
 		  <thead>
 		    <tr>
-		      <th scope="col" class="col-md-8">Nom</th>
+		      <th scope="col" class="col-md-8">
+		      	{% for une_ligne in ligne.nom_atelier|split(':') %}
+		      	{{ une_ligne }}<br />
+		      	{% endfor %}
+		  	  </th>
 		      <th scope="col" class="col-md-2">Inscrits</th>
 		    </tr>
 		  </thead>
@@ -19,7 +23,7 @@
 
 			{% endif %}
 			<tr>
-				<td scope="col">{{ ligne.nom_groupe }}</td>
+				<td scope="col">{{ ligne.nom_groupe|slice(0, 8) }}</td>
 				<td scope="col">{{ ligne.membres|length }}</td>
 
 			{% if key%3 == 2 %}

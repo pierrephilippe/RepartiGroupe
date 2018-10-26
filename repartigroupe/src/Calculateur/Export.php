@@ -32,9 +32,10 @@ class Export
 		foreach($groupes as $key=>$groupe)
 		{
 			$retour[$key]['nom_groupe'] = $groupe->getNom();
+			$retour[$key]['nom_atelier'] = $groupe->getAtelier()->getNom();
 			$membres =  $groupe->getEleveGroupes();
 			$retour[$key]['membres'] = array();
-
+			
 			foreach($membres as $key2=>$membre)
 			{
 				$retour[$key]['membres'][] = $membre->getEleve()->getNom()." "
