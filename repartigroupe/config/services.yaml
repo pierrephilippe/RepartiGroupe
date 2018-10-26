@@ -41,6 +41,11 @@ services:
     App\Services\FileUploader:
         arguments:
             $targetDirectory: '%document_directory%'
+    
+    App\EventListener\DocumentUploadListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
 
     App\Services\Reinitialisation:
         arguments: ['@doctrine.orm.entity_manager']

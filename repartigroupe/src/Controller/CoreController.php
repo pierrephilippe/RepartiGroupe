@@ -18,12 +18,15 @@ use App\Entity\EleveAtelier;
 use App\Entity\Document;
 use App\Form\DocumentType;
 use App\Services\Reinitialisation;
+use App\Services\FileUploader;
+
 
 class CoreController extends AbstractController
 {
 	private $nb_etape=4;
 
-	public function index(Request $request, Reinitialisation $reinitialisation)
+
+	public function index(Request $request, Reinitialisation $reinitialisation, FileUploader $fileUploader)
 	{
 		
 		$session = new Session();
@@ -38,35 +41,30 @@ class CoreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $file stores the uploaded CSV file
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $document->getDocument();
-
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-			
-			//on efface les anciens fichiers
+        	//on efface les anciens fichiers
 			$reinitialisation->effacecsv($this->getParameter('document_directory'));
 
 			//on efface la base
 			$reinitialisation->effacebdd();
 
-            // Move the file to the directory where brochures are stored
-            try {
-                $file->move(
-                    $this->getParameter('document_directory'),
-                    $fileName
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
-                new \Exception("Erreur en déplacant le fichier dans ".$this->getParameter('document_directory'));
-            }
+
+            // $file stores the uploaded CSV file
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $document->getDocument();
+			
+            //$fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+			$fileName = $fileUploader->upload($file);
+
+		
 
             // updates the 'document' property to store the CSV file name
             // instead of its contents
             $document->setDocument($fileName);
 
-            // ... persist the $product variable or any other work
-			
+            $em = $this->getDoctrine()->getManager();
+			$em->persist($document);
+			$em->flush();
+
             return $this->redirect($this->generateUrl('app_etape2'));
         }
 

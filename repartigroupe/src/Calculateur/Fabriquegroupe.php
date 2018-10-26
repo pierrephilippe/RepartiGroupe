@@ -110,9 +110,8 @@ class Fabriquegroupe
 			 	{
 				 	$status = $tour-1;
 					$status.= "passage";
-					//on cherche les ateliers correspondant 
-				 	$atelier = $this->em->getRepository(Atelier::class)->findOneByNom(substr($groupe->getNom(),9));
-					
+					//on cherche les ateliers correspondant
+					$atelier = $groupe->getAtelier();
 					
 					if($groupe->getNbparticipant() > 0){
 						$selection = round($groupe->getNbparticipant()/3);

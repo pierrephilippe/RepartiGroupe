@@ -32,7 +32,9 @@ class Export
 		foreach($groupes as $key=>$groupe)
 		{
 			$retour[$key]['nom_groupe'] = $groupe->getNom();
+			$retour[$key]['num_groupe'] = (int)substr($groupe->getNom(),7,1);
 			$retour[$key]['nom_atelier'] = $groupe->getAtelier()->getNom();
+			$retour[$key]['num_atelier'] = (int)substr($groupe->getAtelier()->getNom(),6,3);
 			$membres =  $groupe->getEleveGroupes();
 			$retour[$key]['membres'] = array();
 			
@@ -44,6 +46,17 @@ class Export
 			}
 		}
 
+		//juste pour le tri
+		foreach ($retour as $key => $row) {
+		    $num_groupe[$key]  = $row['num_groupe'];
+		    $num_atelier[$key] = $row['num_atelier'];
+		}
+		$num_groupe  = array_column($retour, 'num_groupe');
+		$num_atelier = array_column($retour, 'num_atelier');
+		array_multisort($num_atelier, SORT_ASC,
+						$num_groupe, SORT_ASC,
+						$retour);
+		
 		return $retour;
 	}
 

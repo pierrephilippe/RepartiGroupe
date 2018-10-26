@@ -51,6 +51,7 @@ class Reinitialisation
 		$connection->executeUpdate($platform->getTruncateTableSQL('groupe', false));
 		$connection->executeUpdate($platform->getTruncateTableSQL('intervenant', false));
 		$connection->executeUpdate($platform->getTruncateTableSQL('salle', false));
+		$connection->executeUpdate($platform->getTruncateTableSQL('document', false));
 		$connection->query('SET FOREIGN_KEY_CHECKS=1');
 	}
 }

@@ -8,8 +8,8 @@
 	<div class="col-md-4">
 	
 		{% if key%3 == 0 %}
-		<table class="table table-sm table-striped table-hover" style="margin-top:25px">
-		  <thead>
+		<table class="table table-sm table-striped table-hover border border-top-0 border-info" style="margin-top:25px">
+		  <thead class="thead-dark">
 		    <tr>
 		      <th scope="col" class="col-md-8">
 		      	{% for une_ligne in ligne.nom_atelier|split(':') %}
