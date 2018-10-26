@@ -44,7 +44,7 @@ class CoreController extends AbstractController
 		$document = new Document();
         $form = $this->createForm(DocumentType::class, $document);
         $form->handleRequest($request);
-
+	
         if ($form->isSubmitted() && $form->isValid()) {
         	//on efface les anciens fichiers
 			$reinitialisation->effacecsv($this->getParameter('document_directory'));
