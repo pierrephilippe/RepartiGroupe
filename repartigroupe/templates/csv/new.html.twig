@@ -1,6 +1,12 @@
 
 		<h4>Import du fichier CSV</h4>
 		
-		{{ form_start(form) }}		
-		{{ form_row(form.document) }}
+		{{ form_start(form) }}	
+
+			{{ form_errors(form) }}	
+			
+			{{ form_row(form.document) }}
+
+			{{ form_rest(form) }}
+
 		{{ form_end(form) }}

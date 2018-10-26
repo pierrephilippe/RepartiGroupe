@@ -1,0 +1,17 @@
+{# templates/index.html.twig #}
+{% extends 'layout.html.twig' %}
+
+{% block contenu %}
+<!--MENU ETAPES -->
+<h1>Forum</h1>
+<br />
+<ol>
+	<li>Importer les comptes élèves depuis GCU-WEB</li>
+	<li>Créer les ateliers</li>
+	<li>Import depuis formulaire Google :
+		<a href="{{ path('app_etape1') }}" class="btn btn-info btn-sm">Import</a>
+	</li>
+</ol>
+
+{% endblock %}
+

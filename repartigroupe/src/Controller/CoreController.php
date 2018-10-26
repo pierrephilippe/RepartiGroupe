@@ -26,7 +26,12 @@ class CoreController extends AbstractController
 	private $nb_etape=4;
 
 
-	public function index(Request $request, Reinitialisation $reinitialisation, FileUploader $fileUploader)
+	public function index()
+	{
+        return $this->render('index.html.twig');  
+	}
+
+	public function etape1(Request $request, Reinitialisation $reinitialisation, FileUploader $fileUploader)
 	{
 		
 		$session = new Session();
@@ -78,7 +83,6 @@ class CoreController extends AbstractController
         	)
         );  
 	}
-
 	public function etape2(Request $request, Import $import)
     {
 		/*

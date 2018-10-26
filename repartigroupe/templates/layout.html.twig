@@ -4,8 +4,9 @@
 {% block body %}
 
     <div class="container" style="margin-top:20px">
-      
-
+     	{% if app.user %}
+     	<a href="{{ path('app_logout') }}" class="btn btn-sm btn-danger float-right"><i data-feather="log-out"></i></a>
+		{% endif %}
       
 		{% block contenu %}
 

@@ -3,21 +3,28 @@ app_home:
     controller: App\Controller\CoreController::index
 
 app_getprogress:
-    path: /getprogress
+    path: /import/getprogress
     controller: App\Controller\ProgressController::getProgress
 
+app_etape1:
+    path: /import/etape1
+    controller: App\Controller\CoreController::etape1
+
 app_etape2:
-    path: /etape2
+    path: /import/etape2
     controller: App\Controller\CoreController::etape2
 
 app_etape3:
-    path: /etape3
+    path: /import/etape3
     controller: App\Controller\CoreController::etape3
 
 app_etape4:
-    path: /etape4
+    path: /import/etape4
     controller: App\Controller\CoreController::etape4
 
 app_resultats_csv_secretariat:
-    path: /app_resultats_csv_secretariat
+    path: /import/app_resultats_csv_secretariat
     controller: App\Controller\CoreController::retourner_csv_secretariat
+
+app_logout:
+    path: /logout
