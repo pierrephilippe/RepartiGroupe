@@ -31,6 +31,8 @@ class DocumentType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Document::class,
+            'csrf_protection' => false,
+            //'csrf_field_name' => '_token',
         ));
     }
 }

@@ -8,23 +8,23 @@ app_getprogress:
 
 app_etape1:
     path: /import/etape1
-    controller: App\Controller\CoreController::etape1
+    controller: App\Controller\ImportController::etape1
 
 app_etape2:
     path: /import/etape2
-    controller: App\Controller\CoreController::etape2
+    controller: App\Controller\ImportController::etape2
 
 app_etape3:
     path: /import/etape3
-    controller: App\Controller\CoreController::etape3
+    controller: App\Controller\ImportController::etape3
 
 app_etape4:
     path: /import/etape4
-    controller: App\Controller\CoreController::etape4
+    controller: App\Controller\ImportController::etape4
 
 app_resultats_csv_secretariat:
     path: /import/app_resultats_csv_secretariat
-    controller: App\Controller\CoreController::retourner_csv_secretariat
+    controller: App\Controller\ImportController::retourner_csv_secretariat
 
 app_logout:
     path: /logout

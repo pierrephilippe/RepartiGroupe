@@ -6,12 +6,22 @@
 <ul class="nav nav-pills" id="menuimport">
 	{% for i in 1..nb_etape %}
 	<li class="nav-item">
-		<span class="nav-link {% if i == etape %}active{% else %}disabled{% endif %}" href="#">étape {{ i }}</span>
+		<span class="nav-link {% if i == etape %}active{% else %}disabled{% endif %}">étape {{ i }}</span>
 	</li>
 	{% endfor %}
 </ul>
 
 <hr />
+
+{# pass an array argument to get the messages of those types  #}
+{% for label, messages in app.flashes(['warning', 'error']) %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
 
 
 <!--DESCRIPTION ETAPE-->
