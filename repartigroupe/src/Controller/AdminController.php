@@ -22,31 +22,10 @@ use App\Services\Reinitialisation;
 use App\Services\FileUploader;
 
 
-class CoreController extends AbstractController
+class AdminController extends AbstractController
 {
-	private $nb_etape=4;
-
-
 	public function index()
 	{
-        //selon le type de visiteur, on redirige :
-        if( $this->isGranted('ROLE_SUPER_ADMIN') )
-        {
-			return $this->redirectToRoute('app_superadmin_home');
-		}
-		elseif( $this->isGranted('ROLE_ADMIN') )
-        {
-			return $this->redirectToRoute('app_admin_home'); 
-		}
-        elseif( $this->isGranted('ROLE_USER') )
-        {
-			return $this->render('user/index.html.twig');  
-		}
-		else 
-		{
-			throw new Exception('Accès interdit si non identifié');
-		}
+		return $this->render('admin/index.html.twig'); 
 	}
-
-
 }

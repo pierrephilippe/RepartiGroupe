@@ -4,22 +4,6 @@
 {% block contenu %}
 <!--MENU ETAPES -->
 
-<div class="card bg-light mb-3 float-right" style="max-width: 18rem;">
-  <div class="card-header">{{ app.user.username }}</div>
-  <div class="card-body">
-    <h5 class="card-title">
-	    {% if is_granted('ROLE_ADMIN') %}
-	    	Administrateur
-		{% elseif is_granted('ROLE_USER') %}
-		    Utilisateur
-		{% else %}
-		    Anonyme
-		{% endif %}
-	</h5>
-    <p class="card-text">texte...</p>
-  </div>
-</div>
-
 <h1>ADMIN - Forum</h1>
 <br />
 <ol>

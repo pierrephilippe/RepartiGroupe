@@ -1,0 +1,13 @@
+{# templates/index.html.twig #}
+{% extends 'superadmin/layout.html.twig' %}
+
+{% block contenusuperadmin %}
+<h1>Configuration Super-Administrateur</h1>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_rest(form) }}
+{{ form_end(form) }}
+
+{% endblock %}
+

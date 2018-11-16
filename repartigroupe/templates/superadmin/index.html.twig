@@ -1,0 +1,23 @@
+{# templates/index.html.twig #}
+{% extends 'superadmin/layout.html.twig' %}
+
+{% block contenusuperadmin %}
+
+Accueil SUPERADMIN
+
+<a href="{{ path('app_superadmin_etape1') }}" class="btn btn-info btn-sm">
+bouton importer utilisateurs
+</a>
+
+<br />
+
+<ul>
+	<li>virer tous les comptes utilisateurs sauf superadmin</li>
+	<li>créer compte admin</li>
+	<li>créer tous les comptes eleve</li>
+</ul>
+
+
+
+{% endblock %}
+

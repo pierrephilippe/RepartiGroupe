@@ -2,11 +2,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
- 	{% if app.user %}
+	{% if app.user %}
  		{% include 'include/menu.html.twig' %}
 	{% endif %}
 
+
     <div class="container" style="margin-top:60px">
+
+	    {% if is_granted('ROLE_SUPER_ADMIN') %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			  <strong>Utilisateur</strong> 
+			  mode super-administrateur
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		{% elseif is_granted('ROLE_ADMIN') %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			  <strong>Utilisateur</strong> 
+			  mode administrateur
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		{% elseif is_granted('ROLE_USER') %}
+		    <div class="alert alert-success alert-dismissible fade show" role="alert">
+			  <strong>Utilisateur</strong> 
+			  mode utilisateur
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		{% else %}
+		    <div class="alert alert-info alert-dismissible fade show" role="alert">
+			  <strong>Utilisateur</strong> 
+			  mode anonyme
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		{% endif %}
+
 		{% block contenu %}
 
 		{% endblock %}

@@ -16,18 +16,33 @@ class UserFixture extends Fixture
         $this->passwordEncoder = $passwordEncoder;
     }
 
+
 	public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
-		$user = new User();
-		$user->setUsername("pp");
-		$user->setPassword($this->passwordEncoder->encodePassword(
-            $user,
-            '123'
-        ));
-        $user->setRoles(array('ROLE_ADMIN'));
-		$manager->persist($user);
+        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
+            $user = new User();
+            //$user->setFullName($fullname);
+            $user->setUsername($username);
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+            //$user->setEmail($email);
+            $user->setRoles($roles);
+ 
+            $manager->persist($user);
+            $this->addReference($username, $user);
+        }
+ 
         $manager->flush();
     }
+
+    private function getUserData(): array
+    {
+        return [
+            // $userData = [$fullname, $username, $password, $email, $roles];
+            ['SuperAdmin', 'superadmin', '123', 'superadmin@ndsigis.edu', ['ROLE_SUPER_ADMIN']],
+            ['Pierre-Philippe FADY', 'pp', '123', 'pp.fady@ndsigis.edu', ['ROLE_ADMIN']],
+            ['Utilisateur', 'user', '123', 'user@ndsigis.edu', ['ROLE_USER']]
+        ];
+    }
+
+
 }

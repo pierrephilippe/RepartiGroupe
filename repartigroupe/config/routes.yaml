@@ -2,28 +2,44 @@ app_home:
     path: /
     controller: App\Controller\CoreController::index
 
+app_superadmin_home:
+    path: /superadmin/home
+    controller: App\Controller\SuperadminController::index
+
+app_superadmin_config:
+    path: /superadmin/config
+    controller: App\Controller\SuperadminController::config
+
+app_superadmin_etape1:
+    path: /superadmin/etape1
+    controller: App\Controller\SuperadminController::etape1
+
+app_admin_home:
+    path: /admin/home
+    controller: App\Controller\AdminController::index
+
 app_getprogress:
-    path: /import/getprogress
+    path: /getprogress
     controller: App\Controller\ProgressController::getProgress
 
 app_etape1:
-    path: /import/etape1
+    path: /admin/import/etape1
     controller: App\Controller\ImportController::etape1
 
 app_etape2:
-    path: /import/etape2
+    path: /admin/import/etape2
     controller: App\Controller\ImportController::etape2
 
 app_etape3:
-    path: /import/etape3
+    path: /admin/import/etape3
     controller: App\Controller\ImportController::etape3
 
 app_etape4:
-    path: /import/etape4
+    path: /admin/import/etape4
     controller: App\Controller\ImportController::etape4
 
 app_resultats_csv_secretariat:
-    path: /import/app_resultats_csv_secretariat
+    path: /admin/import/app_resultats_csv_secretariat
     controller: App\Controller\ImportController::retourner_csv_secretariat
 
 app_logout:

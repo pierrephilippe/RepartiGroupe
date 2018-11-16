@@ -66,7 +66,7 @@ class ImportController extends AbstractController
             return $this->redirect($this->generateUrl('app_etape2'));
         }
 
-        return $this->render('etapes.html.twig',
+        return $this->render('admin/etapes.html.twig',
         	array(
 	        	'etape' => 1,
 	        	'nb_etape' => $this->nb_etape,
@@ -110,7 +110,7 @@ class ImportController extends AbstractController
 			}
 			return new Response ("Chargement terminé ");
 		}
-		return $this->render('etapes.html.twig',array(
+		return $this->render('admin/etapes.html.twig',array(
         	'etape' => 2,
         	'nb_etape' =>$this->nb_etape,
         	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
@@ -129,7 +129,7 @@ class ImportController extends AbstractController
 	        $retour = $fabriquegroupe->calcul();
 			return new Response ("Chargement terminé ");
 		}
-		return $this->render('etapes.html.twig',array(
+		return $this->render('admin/etapes.html.twig',array(
         	'etape' => 3,
         	'nb_etape' =>$this->nb_etape,
         	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
@@ -148,7 +148,7 @@ class ImportController extends AbstractController
 	    $retour = $export->tableau();
 
 		
-		return $this->render('etapes.html.twig',array(
+		return $this->render('admin/etapes.html.twig',array(
         	'etape' => 4,
         	'nb_etape' =>$this->nb_etape,
         	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
