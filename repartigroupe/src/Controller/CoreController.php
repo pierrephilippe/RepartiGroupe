@@ -28,6 +28,18 @@ class CoreController extends AbstractController
 
 	public function index()
 	{
-        return $this->render('index.html.twig');  
+        //selon le type de visiteur, on redirige :
+        if( $this->isGranted('ROLE_ADMIN') )
+        {
+			return $this->render('admin/index.html.twig');  
+		}
+        elseif( $user->isGranted('ROLE_USER') )
+        {
+			return $this->render('user/index.html.twig');  
+		}
+		else 
+		{
+			return $this->render('index.html.twig');
+		}
 	}
 }
