@@ -1,0 +1,124 @@
+{% extends 'superadmin/layout.html.twig' %}
+
+{% block contenu %}
+<!--MENU ETAPES -->
+<ul class="nav nav-pills" id="menuimport">
+	{% for i in 1..nb_etape %}
+	<li class="nav-item">
+		<span class="nav-link {% if i == etape %}active{% else %}disabled{% endif %}">étape {{ i }}</span>
+	</li>
+	{% endfor %}
+</ul>
+
+<hr />
+
+{# pass an array argument to get the messages of those types  #}
+{% for label, messages in app.flashes(['warning', 'error']) %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+
+
+<!--DESCRIPTION ETAPE-->
+<h3>{{ titre_etape }}</h3>
+	{% if etape == 2 %}
+	<div class="progress" id="progressImport">
+	  <div class="progress-bar progress-bar-striped bg-success" id="progressBar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
+	{% endif %}
+
+	<div id="informations">
+		{% if info is defined %}
+		<blockquote class="blockquote">
+			<p class="mb-0">Informations</p>
+			<footer class="blockquote-footer">
+			  	{{ info }}
+			</footer>		  
+		</blockquote>
+		{% endif %}
+	</div>
+
+	{% block anomalie %}
+	{% endblock %}
+
+{% endblock %}
+
+
+
+{% block script %}
+<script>
+
+$(document).ready (function() {
+	var isInProgress = false;
+
+   	$("#progressImport").show();
+	$("#progressBar").show();
+	
+	{% if url_action is defined %}
+	veryLongImport();
+	{% endif %}
+
+	function veryLongImport()
+	{
+	     isInProgress = true;
+	     
+	     checkfx();
+	     
+	     $.ajax({
+	            type: "POST",
+	            {% if url_action is defined %}
+	            url: "{{ path( url_action )}}",
+	            {% endif %}
+	            async : true,
+	            cache: false,
+	            dataType:'html',
+	            success: function(data){
+	            	$("#progressImport").hide();
+	            	$("#informations").after('<p class="alert alert-success">'+data+'</p>');
+	            	{% if url_suivant is defined %}
+	            		location.href = '{{ path( url_suivant )}}'
+	            	{% endif %}
+	            },
+	            error: function (request, status, error) {
+	            	$("#progressImport").hide();
+	            	$("#informations").after('<p class="alert alert-danger">Veuillez ré-essayer ('+status
+	            		+')<br /><a href="{{ path( 'app_home' )}}" class="btn btn-danger">Retour</a></p>');
+	            },
+	            complete: function(data){
+	                isInProgress = false;
+	            }
+	    });
+	};
+
+	function checkfx()
+	{
+	    if( isInProgress != false )
+	    {
+	        $.ajax({
+	            type: "GET",
+	            url: '{{ path('app_getprogress')}}',
+	            async : true,
+	            cache: false,
+	            dataType:'json',
+	            success: function(data){
+	            	document.getElementById("progressBar").style.width = data['percent'] + '%';
+	            	$("#compteur").text('('+data['compteur']+')'); 
+	            },
+	            complete: function(){
+	                setTimeout(
+				    function() 
+				    {
+				     	checkfx();
+				    }, 200);
+	            }
+	        });
+	    }
+	};
+});
+
+</script>
+{% endblock %}

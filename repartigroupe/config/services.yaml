@@ -49,3 +49,7 @@ services:
 
     App\Services\Reinitialisation:
         arguments: ['@doctrine.orm.entity_manager']
+
+    App\Services\ImportGcuWeb:
+        arguments: ['@doctrine.orm.entity_manager']
+        
