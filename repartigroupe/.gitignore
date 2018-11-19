@@ -3,6 +3,7 @@
 /.env
 /public/bundles/
 /public/csv/
+/public/csvgcuweb/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
