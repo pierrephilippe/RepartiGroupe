@@ -104,7 +104,7 @@ class SuperadminController extends AbstractController
 	        	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape1'),
 	        	'titre_etape' => "Etape 2",
 	        	'url_action' => 'app_superadmin_etape2',
-        		//'url_suivant' => 'app_superadmin_etape3'
+        		'url_suivant' => 'app_superadmin_etape3'
         	)
         );  
 	}
