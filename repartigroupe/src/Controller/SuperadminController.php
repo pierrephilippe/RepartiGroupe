@@ -28,7 +28,7 @@ class SuperadminController extends AbstractController
 			return $this->redirectToRoute('app_superadmin_config');
 		}
 
-		return $this->render('superadmin/index.html.twig', array('configuration' => $configuration)); 
+		return $this->render('superadmin/index.html.twig'); 
 	}
 
 	public function config(Request $request)
@@ -36,9 +36,9 @@ class SuperadminController extends AbstractController
 		$em = $this->getDoctrine()->getManager();
 		$configurations = $em->getRepository(GcuWeb::class)->findAll();
 		if(!empty($configurations)){
+			//1 seule configuration possible.
 			$configuration = $configurations[0];
 		} else {
-			// just setup a fresh $task object (remove the dummy data)
 		    $configuration = new GcuWeb();
 		}
         $form = $this->createForm(GcuWebType::class, $configuration);
@@ -95,8 +95,6 @@ class SuperadminController extends AbstractController
 		if ($request->isMethod('POST')){
 			//service ImportGcuWeb
 			$fichier_a_importer = $importgcuweb->importcsv();
-			//dump($fichier_a_importer);
-			//die();
 			return new Response ("Chargement terminé ");
 		}
 		return $this->render('superadmin/etapes.html.twig',
@@ -105,7 +103,7 @@ class SuperadminController extends AbstractController
 	        	'nb_etape' => $this->nb_etape,
 	        	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape1'),
 	        	'titre_etape' => "Etape 2",
-	        	//'url_action' => 'app_superadmin_etape2',
+	        	'url_action' => 'app_superadmin_etape2',
         		//'url_suivant' => 'app_superadmin_etape3'
         	)
         );  
