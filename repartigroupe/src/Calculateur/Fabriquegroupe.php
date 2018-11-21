@@ -23,7 +23,7 @@ class Fabriquegroupe
 
 	public function calcul()
 	{
-		set_time_limit(600);
+		set_time_limit(-1);
 		//initialisation barre de progression
 		$compteur = 0;
 		$percent = 0;
@@ -84,7 +84,11 @@ class Fabriquegroupe
 			 //dump($nombre_eleves);
 
 			 //Tant que tous les élèves ne sont pas affectés au groupe
-			 while($nombre_eleves > count($this->em->getRepository(EleveGroupe::class)->findAll()))
+			 //while($nombre_eleves > count($this->em->getRepository(EleveGroupe::class)->findAll()))
+			 $status = $tour-1;
+			 $status.= "passage";
+			 while(count($this->em->getRepository(EleveAtelier::class)->findByStatus($status)) > 0)
+
 			 {
 				
 				//on parcourt les groupes
