@@ -4,7 +4,8 @@
 {% block contenu %}
 <!--MENU ETAPES -->
 
-<h1>ADMIN - Forum</h1>
+<h1>Administration du site</h1>
+<!--
 <br />
 <ol>
 	<li>Importer les comptes élèves depuis GCU-WEB</li>
@@ -12,7 +13,54 @@
 	<li>Import depuis formulaire Google :
 		<a href="{{ path('app_etape1') }}" class="btn btn-info btn-sm">Import</a>
 	</li>
+
+	
 </ol>
+-->
+
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Etape 1</h5>
+        <p class="card-text">Importer les comptes utilisateur de la région<br />
+        {{ nb_utilisateurs }} utilisateurs</p>
+        <a href="{{ path('app_superadmin_etape1') }}" class="btn btn-primary">Importer</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Ateliers</h5>
+        <p class="card-text">liste des ateliers</p>
+        <ul>
+			<li>atelier 1...	</li>
+        </ul>	
+        <a href="#" class="btn btn-primary">+</a>
+      </div>
+    </div>
+  </div>
+    <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Intervenants</h5>
+        <p class="card-text">liste des intervenants</p>
+        <a href="#" class="btn btn-primary">+</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12" style="margin-top:10px">
+  	<div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Inscriptions</h5>
+        <p class="card-text"></p>
+        <a href="#" class="btn btn-primary">Ouvrir les Inscfriptions</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}
 
