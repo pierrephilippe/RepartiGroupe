@@ -13,14 +13,11 @@
 <hr />
 
 {# pass an array argument to get the messages of those types  #}
-{% for label, messages in app.flashes(['warning', 'error']) %}
-    {% for message in messages %}
-        <div class="alert alert-{{ label }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-
+{% if etape == 1 or etape == 2 %}
+<p class="alert alert-info">
+	Processus d'import assez long, veuillez patienter jusqu'à la fin...
+</p>
+{% endif %}
 
 
 <!--DESCRIPTION ETAPE-->

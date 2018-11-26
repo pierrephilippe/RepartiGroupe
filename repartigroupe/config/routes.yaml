@@ -3,28 +3,28 @@ app_home:
     controller: App\Controller\CoreController::index
 
 app_superadmin_home:
-    path: /superadmin/home
-    controller: App\Controller\SuperadminController::index
-
-app_superadmin_config:
     path: /superadmin/config
     controller: App\Controller\SuperadminController::config
-
-app_superadmin_etape1:
-    path: /superadmin/etape1
-    controller: App\Controller\SuperadminController::etape1
-
-app_superadmin_etape2:
-    path: /superadmin/etape2
-    controller: App\Controller\SuperadminController::etape2
-
-app_superadmin_etape3:
-    path: /superadmin/etape3
-    controller: App\Controller\SuperadminController::etape3
 
 app_admin_home:
     path: /admin/home
     controller: App\Controller\AdminController::index
+
+app_admin_atelier:
+    path: /admin/atelier
+    controller: App\Controller\AdminController::atelier
+
+app_admin_etape1:
+    path: /admin/etape1
+    controller: App\Controller\AdminController::etape1
+
+app_admin_etape2:
+    path: /admin/etape2
+    controller: App\Controller\AdminController::etape2
+
+app_admin_etape3:
+    path: /admin/etape3
+    controller: App\Controller\AdminController::etape3
 
 app_getprogress:
     path: /getprogress

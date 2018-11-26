@@ -2,29 +2,46 @@
 	<div class="sidebar-sticky">
 		<ul class="nav flex-column">
 			<li class="nav-item">
-    			<a class="nav-link" href="{{ path('app_admin_home') }}">
-      				<i data-feather="home"></i>
-      				Accueil
-    			</a>
-  			</li>
-  			<li class="nav-item">
-    			<a class="nav-link" href="{{ path('app_superadmin_etape1') }}">
-      				<i data-feather="users"></i>
-      				Comptes élèves (superadmin)
-    			</a>
-  			</li>
-  			<li class="nav-item">
-                <a class="nav-link" href="#">
-                	<i data-feather="file"></i>
-                  	Orders
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i data-feather="shopping-cart"></i>
-                  Products
-                </a>
-              </li>
-  		</ul>
+				<a class="nav-link" href="{{ path('app_admin_home') }}">
+					<i data-feather="home"></i>
+					Accueil
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('app_admin_etape1') }}">
+					<i data-feather="users"></i>
+					Elèves
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('app_admin_atelier') }}">
+					<i data-feather="message-circle"></i>
+					Ateliers
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					<i data-feather="map"></i>
+					Salles
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					<i data-feather="clock"></i>
+					Horaires
+				</a>
+			</li>
+		</ul>
+		
+		<hr />
+		<br />
+		<ul class="nav flex-column">
+			<li class="nav-item">
+				<a class="nav-link btn btn-danger" href="" >
+					<i data-feather="trash-2"></i> 
+					Effacer tout !
+				</a>
+			</li>
+		</ul>
 	</div>
 </nav>
