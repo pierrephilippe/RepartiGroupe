@@ -1,0 +1,40 @@
+{# templates/index.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block contenu %}
+<!--MENU ETAPES -->
+
+
+<h2>{{ salles|length }} Salle(s)</h2>
+
+<a href="" class="float-right btn btn-sm btn-info">
+ <i data-feather="plus"></i>
+ Ajouter une salle
+</a>
+
+<table class="table table-striped table-sm" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">action</th>
+    </tr>
+  </thead>
+  <tbody>
+	{% for salle in salles %}
+	<tr>
+		<td>{{ atelier.nom }}</td>
+		<td>
+			<a href="" class="btn btn-sm btn-info">
+				<i data-feather="edit"></i>
+			</a>
+
+			<a href="" class="btn btn-sm btn-danger">
+				<i data-feather="trash"></i>
+			</a>
+		</td>
+	</tr>
+	{% endfor %}
+  </tbody>
+</table>	
+{% endblock %}
+

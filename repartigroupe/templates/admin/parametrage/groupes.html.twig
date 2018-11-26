@@ -1,0 +1,46 @@
+{# templates/index.html.twig #}
+{% extends 'admin/layout.html.twig' %}
+
+{% block contenu %}
+<!--MENU ETAPES -->
+
+
+<h2>{{ groupes|length }} Groupe(s)</h2>
+
+
+<table class="table table-striped table-sm" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">Num Groupe</th>
+      <th scope="col">Num Thème</th>
+      <th scope="col">Nom</th>
+	  <th scope="col">Salle</th>
+	  <th scope="col">Intervenant</th>
+      <th scope="col">Nb Participants</th>
+    </tr>
+  </thead>
+  <tbody>
+	{% for groupe in groupes %}
+	<tr>
+		<td>{{ groupe.nom|split(' ')[1] }}</td>
+		<td>{{ groupe.nom|split(' ')[3]|split(':')[0] }}</td>
+		<td>{{ groupe.nom|split(':')|slice(1)|join(' : ') }}</td>
+		<td>{% if groupe.getSalle() is null %}
+				Pas de salle
+			{% else %}
+    			groupe.getSalle().nom
+			{% endif %}
+		</td>
+		<td>{% if groupe.getIntervenant() is null %}
+				Pas d'intervenant
+			{% else %}
+    			groupe.getIntervenant().nom
+			{% endif %}
+		</td>
+		<td> {{ groupe.getEleveGroupes()|length }} </td>
+	</tr>
+	{% endfor %}
+  </tbody>
+</table>	
+{% endblock %}
+

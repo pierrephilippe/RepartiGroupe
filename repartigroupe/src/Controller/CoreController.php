@@ -32,11 +32,11 @@ class CoreController extends AbstractController
         //selon le type de visiteur, on redirige :
         if( $this->isGranted('ROLE_SUPER_ADMIN') )
         {
-			return $this->redirectToRoute('app_superadmin_home');
+			return $this->redirectToRoute('app_superadmin_config');
 		}
 		elseif( $this->isGranted('ROLE_ADMIN') )
         {
-			return $this->redirectToRoute('app_admin_home'); 
+			return $this->redirectToRoute('app_admin_accueil'); 
 		}
         elseif( $this->isGranted('ROLE_USER') )
         {

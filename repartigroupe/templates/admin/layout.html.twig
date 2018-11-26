@@ -1,0 +1,31 @@
+{# templates/index.html.twig #}
+{% extends 'layout.html.twig' %}
+
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+{% endblock %}
+
+
+{% block contenu %}
+	{% block contenuadmin %}
+	{% endblock %}
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script>
+	$(document).ready (function() {
+		$('#myTable').DataTable({
+			language: {
+				url: "http://cdn.datatables.net/plug-ins/1.10.9/i18n/French.json"
+	    	},
+	    	searching: false,
+		});
+	});
+	</script>
+
+	{% block scriptadmin %}
+	{% endblock %}
+
+{% endblock %}

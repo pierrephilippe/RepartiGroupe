@@ -2,29 +2,69 @@ app_home:
     path: /
     controller: App\Controller\CoreController::index
 
-app_superadmin_home:
+app_superadmin_config:
     path: /superadmin/config
     controller: App\Controller\SuperadminController::config
 
-app_admin_home:
-    path: /admin/home
-    controller: App\Controller\AdminController::index
+app_admin_accueil:
+    path: /admin/accueil
+    controller: App\Controller\AdminController::accueil
 
-app_admin_atelier:
-    path: /admin/atelier
-    controller: App\Controller\AdminController::atelier
+app_admin_initialisation:
+    path: /admin/initialisation
+    controller: App\Controller\AdminController::initialisation
 
-app_admin_etape1:
-    path: /admin/etape1
+app_admin_reinitialisation:
+    path: /admin/reinitialisation
+    controller: App\Controller\AdminController::reinitialisation
+
+app_admin_parametrage_eleves:
+    path: /admin/parametrage/eleves
+    controller: App\Controller\AdminController::eleves
+
+app_admin_parametrage_eleves_etape1:
+    path: /admin/parametrage/eleves/etape1
     controller: App\Controller\AdminController::etape1
 
-app_admin_etape2:
-    path: /admin/etape2
+app_admin_parametrage_eleves_etape2:
+    path: /admin/parametrage/eleves//etape2
     controller: App\Controller\AdminController::etape2
 
-app_admin_etape3:
-    path: /admin/etape3
+app_admin_parametrage_eleves_etape3:
+    path: /admin/parametrage/eleves//etape3
     controller: App\Controller\AdminController::etape3
+
+app_admin_parametrage_eleves_etape4:
+    path: /admin/parametrage/eleves//etape4
+    controller: App\Controller\AdminController::etape4
+
+app_admin_parametrage_ateliers:
+    path: /admin/parametrage/ateliers
+    controller: App\Controller\AdminController::ateliers
+
+app_admin_parametrage_ateliers_ajoute:
+    path: /admin/parametrage/ateliers/ajoute
+    controller: App\Controller\AdminController::ateliers_ajoute
+
+app_admin_parametrage_ateliers_modifie:
+    path: /admin/parametrage/ateliers/modifie/{id}
+    controller: App\Controller\AdminController::ateliers_modifie
+    requirements:
+        id: \d*
+        
+app_admin_parametrage_ateliers_supprime:
+    path: /admin/parametrage/ateliers/supprime/{id}
+    controller: App\Controller\AdminController::ateliers_supprime
+    requirements:
+        id: \d*
+
+app_admin_parametrage_salles:
+    path: /admin/parametrage/salles
+    controller: App\Controller\AdminController::salles
+
+app_admin_parametragegroupes:
+    path: /admin/parametrage/groupes
+    controller: App\Controller\AdminController::ateliers
 
 app_getprogress:
     path: /getprogress

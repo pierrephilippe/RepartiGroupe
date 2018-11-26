@@ -1,135 +1,19 @@
 {# templates/index.html.twig #}
-{% extends 'layout.html.twig' %}
+{% extends 'admin/layout.html.twig' %}
 
 {% block contenu %}
-<!--MENU ETAPES -->
+<div class="jumbotron">
+	<h1 class="display-4">Forum</h1>
+  	<p class="lead">Outil d'aide à la mise en place du forum santé en 3ième.</p>
+  
+  	<hr class="my-4">
 
-<h2>Check List</h2>
-<div class="card-deck">
-	<div class="card border-success mb-3">
-  		<div class="card-header bg-success">
-  			<span class="float-right ">
-  				<i data-feather="check-circle" stroke="white" stroke-width="3"></i>
-  			</span>
-  			<i data-feather="users"></i> Eleves
-  		</div>
-  		<div class="card-body text-success">
-    		<h5 class="card-title">{{ utilisateurs|length }} utilisateur(s)</h5>
-    		<p class="card-text"><a href="" class="btn btn-secondary float-right">Lien</a></p>
-  		</div>
-  	</div>
-	<div class="card border-success mb-3">
-  		<div class="card-header bg-success">
-  			<span class="float-right ">
-  				<i data-feather="check-circle" stroke="white" stroke-width="3"></i>
-  			</span>
-  			<i data-feather="message-circle"></i> Ateliers
-  		</div>
-  		<div class="card-body text-success">
-    		<h5 class="card-title">{{ ateliers|length }} atelier(s)</h5>
-    		<p class="card-text"><a href="" class="btn btn-secondary float-right">Lien</a></p>
-  		</div>
-	</div>
-  	<div class="card border-danger mb-3">
-  		<div class="card-header bg-danger">
-  			<span class="float-right ">
-  				<i data-feather="circle" stroke="white" stroke-width="3"></i>
-  			</span>
-  			<i data-feather="map"></i> Salles
-  		</div>
-  		<div class="card-body text-danger">
-    		<h5 class="card-title">0 Salle(s)</h5>
-    		<p class="card-text"><a href="" class="btn btn-secondary float-right">Lien</a></p>
-  		</div>
-	</div>
-  	<div class="card border-danger mb-3">
-  		<div class="card-header bg-danger">
-  			<span class="float-right ">
-  				<i data-feather="circle" stroke="white" stroke-width="3"></i>
-  			</span>
-  			<i data-feather="clock"></i> Horaires
-  		</div>
-		<div class="card-body text-danger">
-			<h5 class="card-title">0 Horaire(s)</h5>
-			<p class="card-text"><a href="" class="btn btn-secondary float-right">Lien</a></p>
-		</div>
-	</div>
-
+  	<p>Chaque année, pour utiliser cet outil, vous devez suivre les étapes suivantes : </p>
+		<ol>
+			<li>Initialisation <small>(Vider les résultats de l'année précedente)</small></li>
+			<li>Paramétrage <small>(Eleves, Ateliers, Horaires, Salles, Intervenants)</small></li>
+			<li>Inscriptions <small>(Ouverture du formulaire inscriptions)</small></li>
+			<li>Finalisation <small>(Fermeture du formulaire inscriptions, calcul des groupes, distribution des convocations)</small></li>
+		</ol>
 </div>
-<!--
-<br />
-<ol>
-	<li>Importer les comptes élèves depuis GCU-WEB</li>
-	<li>Créer les ateliers</li>
-	<li>Import depuis formulaire Google :
-		<a href="{{ path('app_etape1') }}" class="btn btn-info btn-sm">Import</a>
-	</li>
-
-	
-</ol>
--->
-
-<!--
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Etape 1</h5>
-        <p class="card-text">Importer les comptes utilisateur de la région<br />
-        {{ utilisateurs|length }} utilisateurs</p>
-        <a href="{{ path('app_admin_etape1') }}" class="btn btn-primary">Importer</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Ateliers</h5>
-        <p class="card-text">liste des {{ ateliers|length }} utilisateurs</p>
-        <table class="table table-striped table-sm">
-          <thead>
-		    <tr>
-		      <th scope="col">Nom</th>
-		      <th scope="col">inscrits</th>
-		      <th scope="col">action</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-        	{% for atelier in ateliers %}
-			<tr>
-				<td>{{ atelier.nom }}</td>
-				<td>{{ atelier.nbparticipant }}</td>
-				<td><a href="" class="btn btn-small btn-info">
-					<i data-feather="circle"></i></a>
-				</td>
-			</tr>
-			{% endfor %}
-		  </tbody>
-        </table>	
-        <a href="#" class="btn btn-primary">+</a>
-      </div>
-    </div>
-  </div>
-    <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Intervenants</h5>
-        <p class="card-text">liste des intervenants</p>
-        <a href="#" class="btn btn-primary">+</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6" style="margin-top:10px">
-  	<div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Inscriptions</h5>
-        <p class="card-text"></p>
-        <a href="#" class="btn btn-primary">Ouvrir les Inscfriptions</a>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
 {% endblock %}
-

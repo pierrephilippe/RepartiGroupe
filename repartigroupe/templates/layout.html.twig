@@ -6,29 +6,20 @@
  		{% include 'include/menu.html.twig' %}
 	{% endif %}
 
-	<div class="container-fluid" style="margin-top:20px">
-    	
+	<div class="container-fluid" style="margin-top:60px">
+
       	
-  		{% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+  		{% if is_granted('ROLE_ADMIN') and not is_granted('ROLE_SUPER_ADMIN') %}
   		<div class="row">
   			{% include 'admin/menu.html.twig' %}
        		 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 		{% endif %}
 			
-		{% if is_granted('ROLE_SUPER_ADMIN') %}	
-		 	
-			<a href="{{ path('app_superadmin_home') }}" class="float-right btn btn-secondary">
-			<i data-feather="settings"></i>
-				Configurer
-			</a>
-		{% endif %}
-		
-
 		{% block contenu %}
 
 		{% endblock %}
    	 	
-   	 	{% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+   	 	{% if is_granted('ROLE_ADMIN') and not is_granted('ROLE_SUPER_ADMIN') %}
 			</div>
 		</main>
 		{% endif %}

@@ -1,47 +1,119 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
 	<div class="sidebar-sticky">
 		<ul class="nav flex-column">
+			<!-- Accueil -->
 			<li class="nav-item">
-				<a class="nav-link" href="{{ path('app_admin_home') }}">
+				<a class="nav-link {{ app.request.get('_route') == 'app_admin_accueil' ? 'active' }}" href="{{ path('app_admin_accueil') }}">
 					<i data-feather="home"></i>
 					Accueil
 				</a>
 			</li>
+			
+			<!-- Initialisation -->
 			<li class="nav-item">
-				<a class="nav-link" href="{{ path('app_admin_etape1') }}">
-					<i data-feather="users"></i>
-					Elèves
+				<a class="nav-link {{ app.request.get('_route') == 'app_admin_initialisation' ? 'active' }}" href="{{ path('app_admin_initialisation') }}">
+					<i data-feather="repeat"></i>
+					Initialisation
 				</a>
 			</li>
+
+			<!-- Paramétrage -->
 			<li class="nav-item">
-				<a class="nav-link" href="{{ path('app_admin_atelier') }}">
-					<i data-feather="message-circle"></i>
-					Ateliers
+				<a class="nav-link {{ app.request.get('_route') starts with 'app_admin_parametrage' ? 'active' }}" href="{{ path('app_admin_parametrage_eleves') }}">
+					{% if app.request.get('_route') starts with 'app_admin_parametrage' %}
+					<i data-feather="minus-square"></i>
+					{% else %}
+					<i data-feather="plus-square"></i>
+					{% endif %}
+					Paramétrage
 				</a>
+				{% if app.request.get('_route') starts with 'app_admin_parametrage' %}
+				
+					<li class="nav-item">
+						<a class="float-right nav-link {{ app.request.get('_route') starts with 'app_admin_parametrage_eleves' ? 'active' }}" href="{{ path('app_admin_parametrage_eleves') }}">
+							<i data-feather="users"></i> Elèves
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="float-right nav-link {{ app.request.get('_route') == 'app_admin_parametrage_ateliers' ? 'active' }}" href="{{ path('app_admin_parametrage_ateliers') }}">
+							<i data-feather="message-circle"></i>
+							Ateliers
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="float-right nav-link {{ app.request.get('_route') == 'app_admin_parametrage_salles' ? 'active' }}" href="{{ path('app_admin_parametrage_salles') }}">
+							<i data-feather="map"></i>
+							Salles
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="float-right nav-link" href="#">
+							<i data-feather="clock"></i>
+							Horaires
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="float-right nav-link " href="">
+							<i data-feather="layers"></i>
+							Intervenants
+						</a>
+					</li>	
+							
+				{% endif %}
 			</li>
+			
+			<!-- Inscriptions -->
 			<li class="nav-item">
-				<a class="nav-link" href="#">
-					<i data-feather="map"></i>
-					Salles
+				<a class="nav-link {{ app.request.get('_route') starts with 'app_admin_inscriptions' ? 'active' }}" href="">
+					{% if app.request.get('_route') starts with 'app_admin_inscriptions' %}
+					<i data-feather="minus-square"></i>
+					{% else %}
+					<i data-feather="plus-square"></i>
+					{% endif %}
+					Inscriptions
 				</a>
+				{% if app.request.get('_route') starts with 'app_admin_inscriptions' %}
+					
+					<li class="nav-item">
+						<a class="float-right nav-lin" href="">
+							<i data-feather="message-circle"></i>
+							Etats des inscription
+						</a>
+					</li>	
+					<li class="nav-item">
+						<a class="float-right nav-link" href="">
+							<i data-feather="users"></i> Groupes
+						</a>
+					</li>
+				{% endif %}
 			</li>
+
+			<!-- Finalisation -->
 			<li class="nav-item">
-				<a class="nav-link" href="#">
-					<i data-feather="clock"></i>
-					Horaires
+				<a class="nav-link {{ app.request.get('_route') starts with 'app_admin_finalisation' ? 'active' }}" href="">
+					{% if app.request.get('_route') starts with 'app_admin_finalisation' %}
+					<i data-feather="minus-square"></i>
+					{% else %}
+					<i data-feather="plus-square"></i>
+					{% endif %}
+					Finalisation
 				</a>
-			</li>
-		</ul>
-		
-		<hr />
-		<br />
-		<ul class="nav flex-column">
-			<li class="nav-item">
-				<a class="nav-link btn btn-danger" href="" >
-					<i data-feather="trash-2"></i> 
-					Effacer tout !
-				</a>
-			</li>
+				{% if app.request.get('_route') starts with 'app_admin_finalisation' %}
+					
+					<li class="nav-item">
+						<a class="float-right nav-lin" href="">
+							<i data-feather="message-circle"></i>
+							Etats des inscription
+						</a>
+					</li>	
+					<li class="nav-item">
+						<a class="float-right nav-link" href="">
+							<i data-feather="users"></i> Groupes
+						</a>
+					</li>
+				{% endif %}
+			</li>			
 		</ul>
 	</div>
 </nav>
+

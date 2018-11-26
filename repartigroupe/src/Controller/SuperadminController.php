@@ -17,20 +17,6 @@ use App\Services\ImportGcuWeb;
 
 class SuperadminController extends AbstractController
 {
-  	
-
-  	public function index()
-	{
-		$em = $this->getDoctrine()->getManager();
-		$configuration = $em->getRepository(GcuWeb::class)->findAll();
-		if(empty($configuration)){
-
-			return $this->redirectToRoute('app_superadmin_config');
-		}
-
-		return $this->render('superadmin/index.html.twig'); 
-	}
-
 	public function config(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -55,7 +41,7 @@ class SuperadminController extends AbstractController
 	        $entityManager->persist($configuration);
 	        $entityManager->flush();
 
-	        return $this->redirectToRoute('app_superadmin_home');
+	        return $this->redirectToRoute('app_superadmin_config');
 	    }
 	    return $this->render('superadmin/config.html.twig', array(
 	        'form' => $form->createView(),

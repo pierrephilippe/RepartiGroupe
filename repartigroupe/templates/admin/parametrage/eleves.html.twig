@@ -1,0 +1,36 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block contenu %}
+
+
+<h2>{{ eleves|length }} Eleve(s)</h2>
+
+<a href="{{ path('app_admin_parametrage_eleves_etape1') }}" class="float-right btn btn-sm btn-info">
+ <i data-feather="repeat"></i>
+ Réimporter les élèves
+</a>
+
+<table class="table table-striped table-sm" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Classe</th>
+    </tr>
+  </thead>
+  <tbody>
+	{% for eleve in eleves %}
+	<tr>
+		<td>{{ eleve.nom }}</td>
+		<td>{{ eleve.prenom }}</td>
+		<td>{{ eleve.classe }}</td>
+		</td>
+	</tr>
+	{% endfor %}
+
+
+
+  </tbody>
+</table>	
+
+{% endblock %}
