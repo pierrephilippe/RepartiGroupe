@@ -64,29 +64,10 @@
 			
 			<!-- Inscriptions -->
 			<li class="nav-item">
-				<a class="nav-link {{ app.request.get('_route') starts with 'app_admin_inscriptions' ? 'active' }}" href="{{ path('app_admin_inscriptions') }}">
-					{% if app.request.get('_route') starts with 'app_admin_inscriptions' %}
-					<i data-feather="minus-square"></i>
-					{% else %}
-					<i data-feather="plus-square"></i>
-					{% endif %}
+				<a class="nav-link {{ app.request.get('_route') == 'app_admin_inscriptions' ? 'active' }}" href="{{ path('app_admin_inscriptions') }}">
+					<i data-feather="edit"></i>
 					Inscriptions
 				</a>
-				{% if app.request.get('_route') starts with 'app_admin_inscriptions' %}
-					
-					<li class="nav-item">
-						<a class="float-right nav-lin" href="">
-							<i data-feather="message-circle"></i>
-							Status
-						</a>
-					</li>	
-					<li class="nav-item">
-						<a class="float-right nav-link" href="">
-							<i data-feather="users"></i>
-							Groupes
-						</a>
-					</li>
-				{% endif %}
 			</li>
 
 			<!-- Finalisation -->
@@ -111,7 +92,6 @@
 							Etats des inscription
 						</a>
 					</li>	
-					
 				{% endif %}
 			</li>			
 		</ul>

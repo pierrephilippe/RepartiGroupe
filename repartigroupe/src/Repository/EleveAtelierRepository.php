@@ -49,6 +49,7 @@ class EleveAtelierRepository extends ServiceEntityRepository
             ->getResult()
         ;
 	}
+
 //    /**
 //     * @return EleveAtelier[] Returns an array of EleveAtelier objects
 //     */

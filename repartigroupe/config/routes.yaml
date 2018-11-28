@@ -27,15 +27,15 @@ app_admin_parametrage_eleves_etape1:
     controller: App\Controller\AdminController::etape1
 
 app_admin_parametrage_eleves_etape2:
-    path: /admin/parametrage/eleves//etape2
+    path: /admin/parametrage/eleves/etape2
     controller: App\Controller\AdminController::etape2
 
 app_admin_parametrage_eleves_etape3:
-    path: /admin/parametrage/eleves//etape3
+    path: /admin/parametrage/eleves/etape3
     controller: App\Controller\AdminController::etape3
 
 app_admin_parametrage_eleves_etape4:
-    path: /admin/parametrage/eleves//etape4
+    path: /admin/parametrage/eleves/etape4
     controller: App\Controller\AdminController::etape4
 
 app_admin_parametrage_ateliers:
@@ -122,6 +122,9 @@ app_admin_inscriptions:
     path: /admin/inscriptions
     controller: App\Controller\InscriptionController::index
 
+app_admin_inscriptions_start:
+    path: /admin/inscriptions/start
+    controller: App\Controller\InscriptionController::start
 
 app_admin_parametragegroupes:
     path: /admin/parametrage/groupes

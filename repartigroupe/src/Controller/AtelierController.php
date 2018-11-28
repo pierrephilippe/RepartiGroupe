@@ -19,18 +19,27 @@ use App\Entity\EleveGroupe;
 use App\Entity\EleveAtelier;
 use App\Entity\Groupe;
 
+use App\Services\Autorisations;
+
 class AtelierController extends AbstractController
 {
-	public function ateliers()
+	public function ateliers(Autorisations $autorisations)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$ateliers = $em->getRepository(Atelier::class)->findAll();
+		$autorise = $autorisations->parametrage(); 
 		return $this->render('admin/parametrage/ateliers.html.twig', 
-			array('ateliers' => $ateliers)); 
+			array('ateliers' => $ateliers, 
+				  'autorise' => $autorise)); 
 	}
 
-	public function ateliers_ajoute(Request $request)
+	public function ateliers_ajoute(Request $request, Autorisations $autorisations)
 	{
+		$autorise = $autorisations->parametrage();
+		if(!$autorise)
+			throw new \Exception("Inscriptions en cours, non autorisé");
+
+
 		$atelier = new Atelier();
 		$em = $this->getDoctrine()->getManager();
 		$atelier->setNumero(count($em->getRepository(Atelier::class)->findAll()) + 1);
@@ -40,7 +49,6 @@ class AtelierController extends AbstractController
     			'method' => 'POST'
     		));
     	if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-
 			$atelier->setNom("Thème ".$atelier->getNumero().": ".$atelier->getTitre()); 
 			$atelier->setNbparticipant(0);
       		$em->persist($atelier);
@@ -55,8 +63,12 @@ class AtelierController extends AbstractController
     	));
 	}
 	
-	public function ateliers_modifie(Request $request, $id)
+	public function ateliers_modifie(Request $request, $id, Autorisations $autorisations)
 	{
+		$autorise = $autorisations->parametrage();
+		if(!$autorise)
+			throw new \Exception("Inscriptions en cours, non autorisé");
+
 		$em = $this->getDoctrine()->getManager();
 		$atelier = $em->getRepository(Atelier::class)->findOneById($id);
 		if(!$atelier){
@@ -84,8 +96,12 @@ class AtelierController extends AbstractController
     	));
 	}
 
-	public function ateliers_supprime($id)
+	public function ateliers_supprime($id, Autorisations $autorisations)
 	{
+		$autorise = $autorisations->parametrage();
+		if(!$autorise)
+			throw new \Exception("Inscriptions en cours, non autorisé");
+
 		$em = $this->getDoctrine()->getManager();
 		$atelier = $em->getRepository(Atelier::class)->findOneById($id);
 		if(!$atelier){

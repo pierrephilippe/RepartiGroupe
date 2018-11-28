@@ -43,6 +43,11 @@ class Eleve
      */
     private $eleveGroupes;
 	
+	/**
+     * @ORM\OneToOne(targetEntity="App\Entity\User")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->atelier = new ArrayCollection();
@@ -227,4 +232,14 @@ class Eleve
 
         return $this;
     }
+
+    public function setUser(User $user = null)
+  	{
+   	$this->user = $user;
+  	}
+
+  	public function getUser()
+  	{
+    	return $this->user;
+  	}
 }

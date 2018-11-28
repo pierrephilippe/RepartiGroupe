@@ -21,8 +21,10 @@ use App\Entity\EleveGroupe;
 use App\Entity\EleveAtelier;
 use App\Entity\Groupe;
 use App\Entity\GcuWeb;
+use App\Entity\Inscription;
 use App\Form\GcuWebType;
 use App\Services\ImportGcuWeb;
+use App\Services\Autorisations;
 
 class AdminController extends AbstractController
 {
@@ -75,33 +77,19 @@ class AdminController extends AbstractController
 		foreach($groupes as $groupe){
 			$em->remove($groupe);
 		}
-		$eleves = $em->getRepository(User::class)->findByRole('ROLE_USER');
-		foreach($eleves as $eleve){
-			$em->remove($eleve);
+		$users = $em->getRepository(User::class)->findByRole('ROLE_USER');
+		foreach($users as $user){
+			$em->remove($user);
+		}
+		$inscriptions = $em->getRepository(Inscription::class)->findAll();
+		foreach($inscriptions as $inscription){
+			$em->remove($inscription);
 		}
 		$em->flush();
 		return $this->redirectToRoute('app_admin_initialisation'); 
 	}
-
-	public function salles()
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		$salles = $em->getRepository(Salle::class)->findAll();
-		return $this->render('admin/parametrage/salles.html.twig', 
-			array('salles' => $salles)); 
-	}
-
-	public function groupes()
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		$groupes = $em->getRepository(Groupe::class)->findAll();
-		return $this->render('admin/forum/groupes.html.twig', 
-			array('groupes' => $groupes)); 
-	}
 	
-	public function eleves(Request $request, ImportGcuWeb $importgcuweb)
+	public function eleves(Request $request, ImportGcuWeb $importgcuweb,  Autorisations $autorisations)
 	{
 		
 		$em = $this->getDoctrine()->getManager();		
@@ -109,9 +97,13 @@ class AdminController extends AbstractController
 		if(!$eleves){
 			return $this->redirectToRoute('app_admin_parametrage_eleves_etape1'); 
 		} 
+
+		$autorise = $autorisations->parametrage();
+
 		return $this->render('admin/parametrage/eleves.html.twig',
         	array(
 	        	'eleves' => $eleves,
+	        	'autorise' => $autorise
         	)
         );  
 	}

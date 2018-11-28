@@ -52,4 +52,5 @@ services:
 
     App\Services\ImportGcuWeb:
         arguments: ['@doctrine.orm.entity_manager']
-        
+    App\Services\Autorisations:
+        arguments: ['@doctrine.orm.entity_manager']    

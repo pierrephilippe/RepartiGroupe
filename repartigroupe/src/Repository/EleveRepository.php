@@ -19,6 +19,27 @@ class EleveRepository extends ServiceEntityRepository
         parent::__construct($registry, Eleve::class);
     }
 
+	public function findGroupeByEleve()
+    {
+        return $this->createQueryBuilder('i')
+        	->innerJoin('i.eleveAteliers', 'ir')
+            ->addSelect('ir')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+	public function findNonInscritGroupeByEleve()
+    {
+        return $this->createQueryBuilder('i')
+        	->leftJoin('i.eleveAteliers', 'ir')
+            ->addSelect('ir')
+            ->where('ir.eleve is NULL')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+	
 //    /**
 //     * @return Eleve[] Returns an array of Eleve objects
 //     */

@@ -5,10 +5,12 @@
 
 <h2>{{ eleves|length }} Eleve(s)</h2>
 
+{% if autorise == true %}
 <a href="{{ path('app_admin_parametrage_eleves_etape1') }}" class="float-right btn btn-sm btn-info">
  <i data-feather="repeat"></i>
  Réimporter les élèves
 </a>
+{% endif %}
 
 <table class="table table-striped table-sm" id="myTable">
   <thead>

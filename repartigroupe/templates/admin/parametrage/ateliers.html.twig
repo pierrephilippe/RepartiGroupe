@@ -8,9 +8,11 @@
 <h2>{{ ateliers|length }} Atelier(s)</h2>
 
 <!-- Button trigger modal -->
+{% if autorise == true %}
 <button type="button" class="float-right btn btn-sm btn-info btn-bold" data-toggle="modal" data-target="#dataModal-ajoute" id="modal-ajoute">
   <i data-feather="plus"></i> Ajouter un atelier
 </button>
+{% endif %}
 
 <!-- Modal-Ajoute -->
 <div class="modal fade" id="dataModal-ajoute" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -35,7 +37,9 @@
     <tr>
       <th scope="col">Num</th>
       <th scope="col">Nom</th>
+      {% if autorise == true %}
       <th scope="col" width="80px">action</th>
+      {% endif %}
     </tr>
   </thead>
   <tbody>
@@ -43,6 +47,7 @@
 	<tr>
 		<td>{{ atelier.numero }}</td>
 		<td>{{ atelier.titre }}</td>
+		{% if autorise == true %}
 		<td>
 			<!-- Modal Edit-->
 			<button type="button" class="btn btn-sm btn-info btn-bold modal-edit" data-toggle="modal" data-target="#dataModal-edit" data-href="{{ path('app_admin_parametrage_ateliers_modifie', {'id': atelier.id}) }}">
@@ -52,6 +57,7 @@
 			  <i data-feather="trash"></i>
 			</button>
 		</td>
+		{% endif %}
 	</tr>
 	{% endfor %}
   </tbody>
