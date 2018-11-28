@@ -12,8 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 use App\Entity\User;
 use App\Entity\Atelier;
+use App\Form\AtelierType;
 use App\Entity\Intervenant;
 use App\Entity\Salle;
+use App\Entity\Horaire;
 use App\Entity\Eleve;
 use App\Entity\EleveGroupe;
 use App\Entity\EleveAtelier;
@@ -45,12 +47,13 @@ class AdminController extends AbstractController
 		$ateliers = count($em->getRepository(Atelier::class)->findAll());
 		$intervenants = count($em->getRepository(Intervenant::class)->findAll());
 		$salles = count($em->getRepository(Salle::class)->findAll());
-
+		$horaires = count($em->getRepository(Horaire::class)->findAll());
 		return $this->render('admin/initialisation/initialisation.html.twig', array('groupes' => $groupes,
 																	 'eleves' => $eleves,
 																	 'ateliers' => $ateliers,
 																	 'intervenants' => $intervenants,
-																	 'salles' => $salles)); 
+																	 'salles' => $salles,
+																	 'horaires' => $horaires)); 
 	}
 
 	public function reinitialisation()
@@ -78,42 +81,6 @@ class AdminController extends AbstractController
 		}
 		$em->flush();
 		return $this->redirectToRoute('app_admin_initialisation'); 
-	}
-
-	public function ateliers()
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		$ateliers = $em->getRepository(Atelier::class)->findAll();
-		return $this->render('admin/parametrage/ateliers.html.twig', 
-			array('ateliers' => $ateliers)); 
-	}
-
-	public function atelier_ajoute()
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		$ateliers = $em->getRepository(Atelier::class)->findAll();
-		return $this->render('admin/parametrage/ateliers.html.twig', 
-			array('ateliers' => $ateliers)); 
-	}
-	
-	public function atelier_modifie()
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		$ateliers = $em->getRepository(Atelier::class)->findAll();
-		return $this->render('admin/parametrage/ateliers.html.twig', 
-			array('ateliers' => $ateliers)); 
-	}
-
-	public function atelier_supprime()
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		$ateliers = $em->getRepository(Atelier::class)->findAll();
-		return $this->render('admin/parametrage/ateliers.html.twig', 
-			array('ateliers' => $ateliers)); 
 	}
 
 	public function salles()
@@ -186,7 +153,7 @@ class AdminController extends AbstractController
 			$fichier_a_importer = $importgcuweb->getcsv();
 			//dump($fichier_a_importer);
 			//die();
-			return new Response ("Chargement terminé ");
+			return new Response("Chargement terminé ");
 		} 
 		return $this->render('admin/parametrage/import-eleves.html.twig',
         	array(
@@ -199,8 +166,6 @@ class AdminController extends AbstractController
         	)
         );  
 	}
-
-
 
 	public function etape3(Request $request, ImportGcuWeb $importgcuweb)
 	{

@@ -5,11 +5,11 @@
 <!--MENU ETAPES -->
 
 
-<h2>{{ ateliers|length }} Atelier(s)</h2>
+<h2>{{ horaires|length }} Horaire(s)</h2>
 
 <!-- Button trigger modal -->
 <button type="button" class="float-right btn btn-sm btn-info btn-bold" data-toggle="modal" data-target="#dataModal-ajoute" id="modal-ajoute">
-  <i data-feather="plus"></i> Ajouter un atelier
+  <i data-feather="plus"></i> Ajouter un horaire
 </button>
 
 <!-- Modal-Ajoute -->
@@ -33,24 +33,24 @@
 <table class="table table-striped table-sm" id="myTable">
   <thead>
     <tr>
-      <th scope="col">Num</th>
-      <th scope="col">Nom</th>
+      <th scope="col">Heure</th>
       <th scope="col" width="80px">action</th>
     </tr>
   </thead>
   <tbody>
-	{% for atelier in ateliers %}
+	{% for horaire in horaires %}
 	<tr>
-		<td>{{ atelier.numero }}</td>
-		<td>{{ atelier.titre }}</td>
+		<td>{{ horaire.heure|date('H:i') }}</td>
 		<td>
 			<!-- Modal Edit-->
-			<button type="button" class="btn btn-sm btn-info btn-bold modal-edit" data-toggle="modal" data-target="#dataModal-edit" data-href="{{ path('app_admin_parametrage_ateliers_modifie', {'id': atelier.id}) }}">
+			<button type="button" class="btn btn-sm btn-info btn-bold modal-edit" data-toggle="modal" data-target="#dataModal-edit" data-href="{{ path('app_admin_parametrage_horaires_modifie', {'id': horaire.id}) }}">
 			  <i data-feather="edit"></i>
 			</button>
-			<button type="button" class="btn btn-sm btn-danger btn-bold modal-suppr" data-toggle="modal" data-target="#dataModal-suppr" data-href="{{ path('app_admin_parametrage_ateliers_supprime', {'id': atelier.id}) }}">
+			<button type="button" class="btn btn-sm btn-danger btn-bold modal-suppr" data-toggle="modal" data-target="#dataModal-suppr" data-href="{{ path('app_admin_parametrage_horaires_supprime', {'id': horaire.id}) }}">
 			  <i data-feather="trash"></i>
 			</button>
+
+
 		</td>
 	</tr>
 	{% endfor %}
@@ -85,7 +85,7 @@
         </button>
       </div>
       <div class="modal-body" id="modal-suppr-detail">
-      	Etes-vous sur de vouloir effacer cet atelier ?<br />
+      	Etes-vous sur de vouloir effacer cet horaire ?<br />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -105,8 +105,8 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $('#modal-ajoute').click(function () {
-        $('#modal-ajoute-title').html("Ajoute Atelier");
-        var url = '{{ path('app_admin_parametrage_ateliers_ajoute') }}';
+        $('#modal-ajoute-title').html("Ajoute Horaire");
+        var url = '{{ path('app_admin_parametrage_horaires_ajoute') }}';
         $.ajax({
             type: 'get',
             url: url,
@@ -117,7 +117,7 @@ $(document).ready(function () {
         });
     });
     $('.modal-edit').click(function () {
-        $('#modal-edit-title').html("Modifie Atelier");
+        $('#modal-edit-title').html("Modifie Horaire");
 
         var url = $(this).attr("data-href");
         $.ajax({
@@ -130,7 +130,7 @@ $(document).ready(function () {
         });
     });
 	$('.modal-suppr').click(function () {
-        $('#modal-suppr-title').html("Supprime Atelier");
+        $('#modal-suppr-title').html("Supprime Horaire");
         var url = $(this).attr("data-href");
 
         $('.btn-ok').click(function() {
@@ -138,7 +138,7 @@ $(document).ready(function () {
 	            type: 'post',
 	            url: url,
 	            success: function (data) {
-	                $('#modal-suppr-detail').html("Supprimer cet atelier ?");
+	                $('#modal-suppr-detail').html("Supprimer cet horaire ?");
 	                $('#dataModal-suppr').modal("hide");
 	                location.reload();
 	            }

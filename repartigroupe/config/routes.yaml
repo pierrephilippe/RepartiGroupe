@@ -40,27 +40,88 @@ app_admin_parametrage_eleves_etape4:
 
 app_admin_parametrage_ateliers:
     path: /admin/parametrage/ateliers
-    controller: App\Controller\AdminController::ateliers
+    controller: App\Controller\AtelierController::ateliers
 
 app_admin_parametrage_ateliers_ajoute:
     path: /admin/parametrage/ateliers/ajoute
-    controller: App\Controller\AdminController::ateliers_ajoute
+    controller: App\Controller\AtelierController::ateliers_ajoute
 
 app_admin_parametrage_ateliers_modifie:
     path: /admin/parametrage/ateliers/modifie/{id}
-    controller: App\Controller\AdminController::ateliers_modifie
+    controller: App\Controller\AtelierController::ateliers_modifie
     requirements:
         id: \d*
-        
+
 app_admin_parametrage_ateliers_supprime:
     path: /admin/parametrage/ateliers/supprime/{id}
-    controller: App\Controller\AdminController::ateliers_supprime
+    controller: App\Controller\AtelierController::ateliers_supprime
     requirements:
         id: \d*
 
 app_admin_parametrage_salles:
     path: /admin/parametrage/salles
-    controller: App\Controller\AdminController::salles
+    controller: App\Controller\SalleController::salles
+
+app_admin_parametrage_salles_ajoute:
+    path: /admin/parametrage/salles/ajoute
+    controller: App\Controller\SalleController::salles_ajoute
+
+app_admin_parametrage_salles_modifie:
+    path: /admin/parametrage/salles/modifie/{id}
+    controller: App\Controller\SalleController::salles_modifie
+    requirements:
+        id: \d*
+
+app_admin_parametrage_salles_supprime:
+    path: /admin/parametrage/salles/supprime/{id}
+    controller: App\Controller\SalleController::salles_supprime
+    requirements:
+        id: \d*
+
+app_admin_parametrage_horaires:
+    path: /admin/parametrage/horaires
+    controller: App\Controller\HoraireController::horaires
+
+app_admin_parametrage_horaires_ajoute:
+    path: /admin/parametrage/horaires/ajoute
+    controller: App\Controller\HoraireController::horaires_ajoute
+
+app_admin_parametrage_horaires_modifie:
+    path: /admin/parametrage/horaires/modifie/{id}
+    controller: App\Controller\HoraireController::horaires_modifie
+    requirements:
+        id: \d*
+
+app_admin_parametrage_horaires_supprime:
+    path: /admin/parametrage/horaires/supprime/{id}
+    controller: App\Controller\HoraireController::horaires_supprime
+    requirements:
+        id: \d*
+
+app_admin_parametrage_intervenants:
+    path: /admin/parametrage/intervenants
+    controller: App\Controller\IntervenantController::intervenants
+
+app_admin_parametrage_intervenants_ajoute:
+    path: /admin/parametrage/intervenants/ajoute
+    controller: App\Controller\IntervenantController::intervenants_ajoute
+
+app_admin_parametrage_intervenants_modifie:
+    path: /admin/parametrage/intervenants/modifie/{id}
+    controller: App\Controller\IntervenantController::intervenants_modifie
+    requirements:
+        id: \d*
+
+app_admin_parametrage_intervenants_supprime:
+    path: /admin/parametrage/intervenants/supprime/{id}
+    controller: App\Controller\IntervenantController::intervenants_supprime
+    requirements:
+        id: \d*
+
+app_admin_inscriptions:
+    path: /admin/inscriptions
+    controller: App\Controller\InscriptionController::index
+
 
 app_admin_parametragegroupes:
     path: /admin/parametrage/groupes

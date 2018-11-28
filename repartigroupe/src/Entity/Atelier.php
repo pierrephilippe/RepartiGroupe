@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Atelier
 {
-    /**
+  /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -22,6 +22,16 @@ class Atelier
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $numero;
+
+   /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $titre;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EleveAtelier", mappedBy="atelier")
@@ -38,7 +48,6 @@ class Atelier
      */
     private $nbparticipant;
 
-    
     public function __construct()
     {
         $this->eleveAteliers = new ArrayCollection();
@@ -63,9 +72,9 @@ class Atelier
     }
 
 	public function getNbparticipant(): ?int
-    {
-        return $this->nbparticipant;
-    }
+                {
+                    return $this->nbparticipant;
+                }
 
     public function setNbparticipant(int $nbparticipant): self
     {
@@ -132,6 +141,30 @@ class Atelier
                 $groupe->setAtelier(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumero(): ?string
+    {
+        return $this->numero;
+    }
+
+    public function setNumero(string $numero): self
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
 
         return $this;
     }

@@ -47,14 +47,14 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="float-right nav-link" href="#">
-							<i data-feather="clock"></i>
+						<a class="float-right nav-link {{ app.request.get('_route') == 'app_admin_parametrage_horaires' ? 'active' }}" href="{{ path('app_admin_parametrage_horaires') }}">
+							<i data-feather="map"></i>
 							Horaires
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="float-right nav-link " href="">
-							<i data-feather="layers"></i>
+						<a class="float-right nav-link {{ app.request.get('_route') == 'app_admin_parametrage_intervenants' ? 'active' }}" href="{{ path('app_admin_parametrage_intervenants') }}">
+							<i data-feather="map"></i>
 							Intervenants
 						</a>
 					</li>	
@@ -64,7 +64,7 @@
 			
 			<!-- Inscriptions -->
 			<li class="nav-item">
-				<a class="nav-link {{ app.request.get('_route') starts with 'app_admin_inscriptions' ? 'active' }}" href="">
+				<a class="nav-link {{ app.request.get('_route') starts with 'app_admin_inscriptions' ? 'active' }}" href="{{ path('app_admin_inscriptions') }}">
 					{% if app.request.get('_route') starts with 'app_admin_inscriptions' %}
 					<i data-feather="minus-square"></i>
 					{% else %}
@@ -77,12 +77,13 @@
 					<li class="nav-item">
 						<a class="float-right nav-lin" href="">
 							<i data-feather="message-circle"></i>
-							Etats des inscription
+							Status
 						</a>
 					</li>	
 					<li class="nav-item">
 						<a class="float-right nav-link" href="">
-							<i data-feather="users"></i> Groupes
+							<i data-feather="users"></i>
+							Groupes
 						</a>
 					</li>
 				{% endif %}
@@ -99,18 +100,18 @@
 					Finalisation
 				</a>
 				{% if app.request.get('_route') starts with 'app_admin_finalisation' %}
-					
+					<li class="nav-item">
+						<a class="float-right nav-link" href="">
+							<i data-feather="users"></i> Groupes
+						</a>
+					</li>
 					<li class="nav-item">
 						<a class="float-right nav-lin" href="">
 							<i data-feather="message-circle"></i>
 							Etats des inscription
 						</a>
 					</li>	
-					<li class="nav-item">
-						<a class="float-right nav-link" href="">
-							<i data-feather="users"></i> Groupes
-						</a>
-					</li>
+					
 				{% endif %}
 			</li>			
 		</ul>
