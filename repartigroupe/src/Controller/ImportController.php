@@ -116,7 +116,8 @@ class ImportController extends AbstractController
         	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
         	'titre_etape' => "Etape 2 - import en base de donnée",
         	'url_action' => 'app_etape2',
-        	'url_suivant' => 'app_etape3'));
+        	//'url_suivant' => 'app_etape3'
+        	));
     }
 
 	public function etape3(Request $request, Fabriquegroupe $fabriquegroupe)
@@ -135,7 +136,7 @@ class ImportController extends AbstractController
         	//'titre_etape' => $this->get('translator')->trans('intranet.import.etape2'),
         	'titre_etape' => "Etape 3 - calcul des groupes",
         	'url_action' => 'app_etape3',
-        	'url_suivant' => 'app_etape4'
+        	//'url_suivant' => 'app_etape4'
         ));
     }
 

@@ -22,7 +22,12 @@
       </h5>
       <p class="card-text">
 		{% for eleve in repondus %}
-		{{ eleve.nom }} {{ eleve.prenom }} {{ eleve.classe.nom }}<br />
+		{% if eleve.user is null %}
+		--->{{ eleve.nom }} {{ eleve.prenom }} {{ eleve.classe.nom }}
+		{% else %}
+		{{ eleve.user.nom }} {{ eleve.user.prenom }} {{ eleve.user.classe }}
+		{% endif %}
+		<br />
 		{% endfor %}
       </p>
       <p class="card-text"><small class="text-muted"></small></p>
@@ -35,7 +40,12 @@
       	</h5>
       <p class="card-text">
 		{% for eleve in nonrepondus %}
-		{{ eleve.nom }} {{ eleve.prenom }} {{ eleve.classe.nom }}<br />
+		{% if eleve.user is null %}
+		--->{{ eleve.nom }} {{ eleve.prenom }} {{ eleve.classe.nom }}
+		{% else %}
+		{{ eleve.user.nom }} {{ eleve.user.prenom }} {{ eleve.user.classe }}
+		{% endif %}
+		<br />
 		{% endfor %}
       </p>
       <p class="card-text"><small class="text-muted"></small></p>

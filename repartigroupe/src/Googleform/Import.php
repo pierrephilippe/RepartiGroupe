@@ -88,7 +88,9 @@ class Import
       		$atelier1 = $this->em->getRepository(Atelier::class)->findOneByNom($retour[$key][3]);
       		if (null === $atelier1) {
       			$atelier1 = new Atelier;
-      			$atelier1->setNom($retour[$key][3]);
+      			$atelier1->setNom($retour[$key][3]); //Thème 7: Le harcèlement et l'indifférence au collège
+      			$atelier1->setTitre(implode(" : ",array_slice(explode(":",$retour[$key][3]),1)));
+      			$atelier1->setNumero(explode(" ",explode(":",$retour[$key][3])[0])[1]);
       			$this->em->persist($atelier1);
 			}
 
@@ -97,6 +99,8 @@ class Import
       		if (null === $atelier2) {
       			$atelier2 = new Atelier;
       			$atelier2->setNom($retour[$key][5]);
+      			$atelier2->setTitre(implode(" : ",array_slice(explode(":",$retour[$key][5]),1)));
+      			$atelier2->setNumero(explode(" ",explode(":",$retour[$key][5])[0])[1]);
 				$this->em->persist($atelier2);
 			}
 
@@ -105,6 +109,8 @@ class Import
       		if (null === $atelier3) {
       			$atelier3 = new Atelier;
       			$atelier3->setNom($retour[$key][7]);
+      			$atelier3->setTitre(implode(" : ",array_slice(explode(":",$retour[$key][7]),1)));
+      			$atelier3->setNumero(explode(" ",explode(":",$retour[$key][7])[0])[1]);
       			$this->em->persist($atelier3);
 			}
 			

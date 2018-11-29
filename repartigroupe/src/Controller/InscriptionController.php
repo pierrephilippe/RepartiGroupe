@@ -51,6 +51,7 @@ class InscriptionController extends AbstractController
 			$users = $em->getRepository(User::class)->findByRole('ROLE_USER');
 			foreach($users as $user){
 				$eleve = $em->getRepository(Eleve::class)->findOneByUser($user);
+				
 				if(!$eleve){
 					$eleve = new Eleve();
 					$eleve->setNom($user->getNom());
@@ -63,6 +64,7 @@ class InscriptionController extends AbstractController
 					$em->persist($eleve);
 					$em->flush($eleve);
 				}
+
 			}
 		}
 		
