@@ -3,9 +3,13 @@
 
 {% block contenu %}
 <!--MENU ETAPES -->
+{% if utilisateur %}
+<h1>{{ utilisateur.nom }} {{ utilisateur.prenom }} {{ utilisateur.classe }}</h1>
+{% endif %}
 
-<h1>USER</h1>
+{% if message %}
+	<p class="alert alert-info">{{ message }}</p>
+{% endif %}
 
-On affiche ici le formulaire d'inscription aux ateliers uniquement si l'administrateur a validé le machin ET si il n'a pas déjà été rempli par l'utilisateur en question
 {% endblock %}
 

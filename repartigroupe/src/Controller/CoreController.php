@@ -40,7 +40,7 @@ class CoreController extends AbstractController
 		}
         elseif( $this->isGranted('ROLE_USER') )
         {
-			return $this->render('user/index.html.twig');  
+			return $this->redirectToRoute('app_user_accueil'); 
 		}
 		else 
 		{

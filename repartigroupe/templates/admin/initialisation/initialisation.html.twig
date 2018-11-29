@@ -11,14 +11,29 @@
 <p class="alert alert-info">
 	<strong>Effacer la base</strong><br /><br />
 	Cette action va effacer les éléments suivant de la base de donnée : <br />
-	<span class="badge badge-secondary">Eleves <span class="badge badge-danger">{{ eleves }}</span></span></button>
-	<span class="badge badge-secondary">Groupes <span class="badge badge-danger">{{ groupes }}</span></span><br /><br />
-	Les éléments suivants seront conservés, mais vous pourrez les modifier : <br />
-	<span class="badge badge-secondary">Ateliers <span class="badge badge-info">{{ ateliers }}</span></span>
-	<span class="badge badge-secondary">Intervenants<span class="badge badge-info">{{ intervenants }}</span> </span>
-	<span class="badge badge-secondary">Salles <span class="badge badge-info">{{ salles }}</span></span>
-	<span class="badge badge-secondary">Horaires <span class="badge badge-info">{{ horaires }}</span></span><br />
+	<span class="badge badge-secondary" style="padding:5px">
+		Eleves <span class="badge badge-danger" style="padding:5px">{{ eleves }}</span>
+	</span>
+	<span class="badge badge-secondary" style="padding:5px">
+		Groupes <span class="badge badge-danger" style="padding:5px">{{ groupes }}</span>
+	</span>
+
 	<br /><br />
+	Les éléments suivants seront conservés, vous pourrez les modifier : <br />
+
+	<span class="badge badge-secondary" style="padding:5px">
+		Ateliers <span class="badge badge-info" style="padding:5px">{{ ateliers }}</span>
+	</span>
+	<span class="badge badge-secondary" style="padding:5px">
+		Intervenants<span class="badge badge-info" style="padding:5px">{{ intervenants }}</span>
+	</span>
+	<span class="badge badge-secondary" style="padding:5px">
+		Salles <span class="badge badge-info" style="padding:5px">{{ salles }}</span>
+	</span>
+	<span class="badge badge-secondary" style="padding:5px">
+		Horaires <span class="badge badge-info" style="padding:5px">{{ horaires }}</span>
+	</span>
+	<br /><br /><br />
 	<button class="btn btn-danger" data-href="{{ path('app_admin_reinitialisation') }}" data-toggle="modal" data-target="#confirm-delete">
         Réinitialisation
     </button>

@@ -126,6 +126,11 @@ app_admin_inscriptions_start:
     path: /admin/inscriptions/start
     controller: App\Controller\InscriptionController::start
 
+app_user_accueil:
+    path: /user/accueil
+    controller: App\Controller\UserController::accueil   
+
+
 app_admin_parametragegroupes:
     path: /admin/parametrage/groupes
     controller: App\Controller\AdminController::ateliers
@@ -153,6 +158,10 @@ app_etape4:
 app_resultats_csv_secretariat:
     path: /admin/import/app_resultats_csv_secretariat
     controller: App\Controller\ImportController::retourner_csv_secretariat
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
 
 app_logout:
     path: /logout

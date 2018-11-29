@@ -25,7 +25,17 @@
 		{% if eleve.user is null %}
 		--->{{ eleve.nom }} {{ eleve.prenom }} {{ eleve.classe.nom }}
 		{% else %}
+		
 		{{ eleve.user.nom }} {{ eleve.user.prenom }} {{ eleve.user.classe }}
+		<a data-toggle="popover" title="{{ eleve.user.nom }} {{ eleve.user.prenom }}" data-html="true" data-content="
+		{% for eleveatelier in eleve.getEleveAteliers() %}
+			<strong>Thème {{ eleveatelier.atelier.numero }}</strong> : {{ eleveatelier.atelier.titre }}<br />
+		{% endfor %}
+		">
+			<i data-feather="info"></i>
+		</a>
+		
+
 		{% endif %}
 		<br />
 		{% endfor %}
@@ -53,4 +63,14 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block scriptadmin %}
+<script type="text/javascript">
+$(document).ready(function () {
+	$(function () {
+	  $('[data-toggle="popover"]').popover()
+	})
+});
+</script>
 {% endblock %}

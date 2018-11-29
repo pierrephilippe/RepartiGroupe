@@ -26,4 +26,16 @@ class Autorisations
 		return $autorise;
     }
 
+    public function remplirformulaireeleve()
+    {
+        //VRAI SI PAS D'INSCRIPTION EN COURS
+        $autorise = false;
+		$inscriptions = $this->em->getRepository(Inscription::class)->findAll();
+		if(!empty($inscriptions) && $inscriptions[0]->getStatus() == "encours" ){
+			$autorise = true;
+		} 
+
+		return $autorise;
+    }
+
 }
