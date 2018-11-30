@@ -33,6 +33,14 @@ class InscriptionController extends AbstractController
         return $this->render('admin/inscriptions/index.html.twig');
     }
 
+
+	/*
+     * On test si les inscriptions sont déjà ouverts.
+     * si non -> on ouvre les inscriptions
+     *				-> Copie des tous les User ayant le Role 'USER' dans la table Elève.
+	 *				   Alimentation de la table Classe par la même occasion
+     * si oui -> on liste les élèves ayant déjà répondu et les élèves n'ayant pas répondu
+	 */
     public function start(Request $request){
     	$em = $this->getDoctrine()->getManager();
 
@@ -69,7 +77,7 @@ class InscriptionController extends AbstractController
 		}
 		
 		$eleves = $em->getRepository(Eleve::class)->findAll();
-		$eleves_ateliers = $em->getRepository(EleveAtelier::class)->findAll();
+		//$eleves_ateliers = $em->getRepository(EleveAtelier::class)->findAll();
 
 		//eleve ayant répondu à l'enquête
 		$repondus = $em->getRepository(Eleve::class)->findGroupeByEleve();
@@ -79,7 +87,7 @@ class InscriptionController extends AbstractController
 
         return $this->render('admin/inscriptions/ouvert.html.twig', array('inscription'=>$inscription,
     																	  'eleves' => $eleves, 
-    																	  'eleves_ateliers' => $eleves_ateliers, 
+    																	  //'eleves_ateliers' => $eleves_ateliers, 
     																	  'repondus' => $repondus,
     																	  'nonrepondus' => $nonrepondus));
     }

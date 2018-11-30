@@ -20,27 +20,37 @@
       <h5 class="card-title">Elèves ayant répondu 
       	<span class="badge badge-pill badge-success">{{ repondus|length }}</span>
       </h5>
-      <p class="card-text">
-		{% for eleve in repondus %}
-		{% if eleve.user is null %}
-		--->{{ eleve.nom }} {{ eleve.prenom }} {{ eleve.classe.nom }}
-		{% else %}
 		
-		{{ eleve.user.nom }} {{ eleve.user.prenom }} {{ eleve.user.classe }}
-		<a data-toggle="popover" title="{{ eleve.user.nom }} {{ eleve.user.prenom }}" data-html="true" data-content="
-		{% for eleveatelier in eleve.getEleveAteliers() %}
-			<strong>Thème {{ eleveatelier.atelier.numero }}</strong> : {{ eleveatelier.atelier.titre }}<br />
-		{% endfor %}
-		">
-			<i data-feather="info"></i>
-		</a>
+	  <p class="card-text">
+      {% for eleve in repondus %}
+      	<span class="{% if eleve.getEleveAteliers()|length != 3 %}
+      						badge badge-danger
+      				 {% endif %}
+					 {% if eleve.getEleveAteliers()[0].atelier == eleve.getEleveAteliers()[1].atelier or 
+					 	   eleve.getEleveAteliers()[0].atelier == eleve.getEleveAteliers()[2].atelier or
+					 	   eleve.getEleveAteliers()[1].atelier == eleve.getEleveAteliers()[2].atelier %}
+					 	   badge badge-warning
+					 {% endif %}
+      	">
+			{% if eleve.user is null %}
+				--->{{ eleve.nom }} {{ eleve.prenom }} {{ eleve.classe.nom }}
+			{% else %}
 		
-
-		{% endif %}
-		<br />
-		{% endfor %}
-      </p>
-      <p class="card-text"><small class="text-muted"></small></p>
+				{{ eleve.user.nom }} {{ eleve.user.prenom }} {{ eleve.user.classe }}
+			
+				<a data-toggle="popover" title="{{ eleve.user.nom }} {{ eleve.user.prenom }}" data-html="true" data-content="
+				{% for eleveatelier in eleve.getEleveAteliers() %}
+					<strong>Thème {{ eleveatelier.atelier.numero }}</strong> : {{ eleveatelier.atelier.titre }}<br />
+				{% endfor %}
+				">
+					<i data-feather="info"></i>
+				</a>
+			{% endif %}
+			
+      </span>
+      <br />
+      {% endfor %}
+  </p>
     </div>
   </div>
   <div class="card border-danger">
@@ -48,17 +58,18 @@
       <h5 class="card-title">Elèves n'ayant pas répondu 
       	<span class="badge badge-pill badge-danger">{{ nonrepondus|length }}</span>
       	</h5>
-      <p class="card-text">
-		{% for eleve in nonrepondus %}
-		{% if eleve.user is null %}
-		--->{{ eleve.nom }} {{ eleve.prenom }} {{ eleve.classe.nom }}
-		{% else %}
-		{{ eleve.user.nom }} {{ eleve.user.prenom }} {{ eleve.user.classe }}
-		{% endif %}
-		<br />
+      	<p class="card-text">
+      	{% for eleve in nonrepondus %}
+	     	 <span class="">
+				{% if eleve.user is null %}
+				--->{{ eleve.nom }} {{ eleve.prenom }} {{ eleve.classe.nom }}
+				{% else %}
+				{{ eleve.user.nom }} {{ eleve.user.prenom }} {{ eleve.user.classe }}
+				{% endif %}
+				<br />
+	      	</span>
 		{% endfor %}
-      </p>
-      <p class="card-text"><small class="text-muted"></small></p>
+		</p>
     </div>
   </div>
 </div>
