@@ -26,9 +26,11 @@
       	<span class="{% if eleve.getEleveAteliers()|length != 3 %}
       						badge badge-danger
       				 {% endif %}
-					 {% if eleve.getEleveAteliers()[0].atelier == eleve.getEleveAteliers()[1].atelier or 
+					 {% if eleve.getEleveAteliers()|length == 3 and
+					 	   (eleve.getEleveAteliers()[0].atelier == eleve.getEleveAteliers()[1].atelier or 
 					 	   eleve.getEleveAteliers()[0].atelier == eleve.getEleveAteliers()[2].atelier or
-					 	   eleve.getEleveAteliers()[1].atelier == eleve.getEleveAteliers()[2].atelier %}
+					 	   eleve.getEleveAteliers()[1].atelier == eleve.getEleveAteliers()[2].atelier)
+					 	    %}
 					 	   badge badge-warning
 					 {% endif %}
       	">

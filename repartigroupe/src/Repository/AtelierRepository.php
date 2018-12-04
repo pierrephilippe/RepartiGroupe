@@ -22,7 +22,17 @@ class AtelierRepository extends ServiceEntityRepository
 //    /**
 //     * @return Atelier[] Returns an array of Atelier objects
 //     */
-    /*
+    
+    public function getOrderByNom()
+	{
+	   return $this
+	      ->createQueryBuilder('c')
+	      ->orderBy('c.numero', 'ASC')
+	    ;
+	}
+  /*
+
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('a')

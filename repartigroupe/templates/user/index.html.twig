@@ -7,9 +7,26 @@
 <h1>{{ utilisateur.nom }} {{ utilisateur.prenom }} {{ utilisateur.classe }}</h1>
 {% endif %}
 
-{% if message %}
+{% if message is defined %}
 	<p class="alert alert-info">{{ message }}</p>
 {% endif %}
+
+{% if form is defined %}
+<div class="row justify-content-md-center">
+	<div class="col-sm-6">
+		<div class="well">
+		  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+		  {# Les erreurs générales du formulaire. #}
+		  {{ form_errors(form) }}
+		 
+
+		  {{ form_end(form) }}
+		</div>
+	</div>
+</div>
+{% endif %}
+
 
 {% endblock %}
 

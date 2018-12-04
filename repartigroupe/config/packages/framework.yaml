@@ -5,7 +5,7 @@ framework:
     translator:
         fallbacks: ['fr']
     #default_locale: en
-    #csrf_protection: true
+    #csrf_protection: false
     csrf_protection: ~
     #http_method_override: true
 
